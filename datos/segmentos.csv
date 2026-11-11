@@ -1,0 +1,206 @@
+id,eje,segmento,pct,descripcion,ejercicio
+nvidia,negocio,Centros de datos,90,"GPU, servidores y redes para entrenar y ejecutar inteligencia artificial",2025 (ej. fiscal 2026)
+nvidia,negocio,Videojuegos,7,Tarjetas gráficas GeForce para PC y el chip de la Nintendo Switch,2025 (ej. fiscal 2026)
+nvidia,negocio,Visualización profesional,1.5,"Tarjetas para diseño, ingeniería y cine",2025 (ej. fiscal 2026)
+nvidia,negocio,Automoción,1,Plataforma DRIVE de conducción asistida,2025 (ej. fiscal 2026)
+nvidia,negocio,Otros,0.5,Fabricantes de equipos y otros,2025 (ej. fiscal 2026)
+nvidia,cliente,"Grandes nubes (Microsoft, Amazon, Google, Meta, Oracle)",50,Compran las GPU para alquilar potencia de IA o usarla en sus propios servicios,2025
+nvidia,cliente,"Otras nubes de IA, empresas y gobiernos",40,"CoreWeave, xAI, OpenAI, Tesla, fabricantes de servidores (Dell, Supermicro) y países",2025
+nvidia,cliente,Jugadores y fabricantes de PC,10,Tarjetas gráficas y portátiles,2025
+apple,negocio,iPhone,50,Teléfonos,2025
+apple,negocio,Servicios,26,"App Store, iCloud, Apple Music, Apple Pay y lo que paga Google por ser el buscador",2025
+apple,negocio,"Wearables, hogar y accesorios",9,"Apple Watch, AirPods",2025
+apple,negocio,Mac,8,Ordenadores,2025
+apple,negocio,iPad,7,Tabletas,2025
+apple,geografia,América,42,,2025
+apple,geografia,Europa,27,,2025
+apple,geografia,China,16,,2025
+apple,geografia,Japón y resto de Asia,15,,2025
+microsoft,negocio,Productividad y procesos de negocio,43,"Office 365, Copilot, LinkedIn, Dynamics",2025 (ej. fiscal)
+microsoft,negocio,Nube inteligente,38,Azure y servidores,2025 (ej. fiscal)
+microsoft,negocio,Informática personal,19,"Windows, Xbox, búsqueda y publicidad",2025 (ej. fiscal)
+alphabet,negocio,Búsqueda de Google,56,Anuncios en el buscador,2025
+alphabet,negocio,Google Cloud,15,Nube e IA para empresas,2025
+alphabet,negocio,"Suscripciones, plataformas y dispositivos",12,"YouTube Premium, Google One, Play, Pixel",2025
+alphabet,negocio,Anuncios en YouTube,10,,2025
+alphabet,negocio,Red de Google,7,Anuncios en webs de terceros,2025
+amazon,negocio,Tienda online,38,Ventas directas,2025
+amazon,negocio,Servicios a vendedores,24,Comisiones y logística para terceros,2025
+amazon,negocio,AWS (nube),18,Aporta más de la mitad del beneficio operativo,2025
+amazon,negocio,Publicidad,9,,2025
+amazon,negocio,Suscripciones,7,Prime,2025
+amazon,negocio,Tiendas físicas y otros,4,Whole Foods,2025
+meta,negocio,Publicidad,98,"Anuncios en Facebook, Instagram y WhatsApp",2025
+meta,negocio,Reality Labs y otros,2,Gafas Quest y Ray-Ban; pierde dinero,2025
+tesla,negocio,Automoción,73,Venta de coches y créditos regulatorios,2025
+tesla,negocio,Energía,14,Baterías Megapack y solar,2025
+tesla,negocio,Servicios y otros,13,"Recarga, reparaciones, seguros",2025
+amd,negocio,Centros de datos,48,Procesadores EPYC y GPU de IA Instinct,2025
+amd,negocio,PC,31,Procesadores Ryzen,2025
+amd,negocio,Videojuegos,11,Chips de PlayStation y Xbox y tarjetas Radeon,2025
+amd,negocio,Embebidos,10,"Chips para industria, coches y redes",2025
+broadcom,negocio,Semiconductores,58,Chips de IA a medida y de red,2025 (ej. fiscal)
+broadcom,negocio,Software de infraestructura,42,VMware,2025 (ej. fiscal)
+tsmc,negocio,Computación de alto rendimiento,58,"Chips de IA y de servidores (NVIDIA, AMD, Broadcom)",2025
+tsmc,negocio,Móviles,29,"Procesadores de Apple, Qualcomm y MediaTek",2025
+tsmc,negocio,Automoción,5,,2025
+tsmc,negocio,Internet de las cosas,5,,2025
+tsmc,negocio,Otros,3,,2025
+tsmc,geografia,Norteamérica,75,Clientes con sede en EE. UU.,2025
+tsmc,geografia,Asia y resto,25,,2025
+asml,negocio,Venta de máquinas,75,Litografía EUV y DUV,2025
+asml,negocio,Servicio y mantenimiento,25,Base instalada,2025
+intel,negocio,PC,58,Procesadores Core,2025
+intel,negocio,Centros de datos e IA,31,Procesadores Xeon,2025
+intel,negocio,Fabricación para terceros y otros,11,"Altera, Mobileye, fundición",2025
+qualcomm,negocio,Chips para móviles,62,Snapdragon,2025 (ej. fiscal)
+qualcomm,negocio,Internet de las cosas,15,,2025 (ej. fiscal)
+qualcomm,negocio,Licencias de patentes,13,,2025 (ej. fiscal)
+qualcomm,negocio,Automoción,10,,2025 (ej. fiscal)
+micron,negocio,Memoria DRAM,76,Incluye la memoria HBM para IA,2025 (ej. fiscal)
+micron,negocio,Memoria NAND,23,Almacenamiento,2025 (ej. fiscal)
+oracle,negocio,Nube y soporte de licencias,77,,2025 (ej. fiscal)
+oracle,negocio,Licencias,9,,2025 (ej. fiscal)
+oracle,negocio,Servicios,9,,2025 (ej. fiscal)
+oracle,negocio,Hardware,5,,2025 (ej. fiscal)
+sony,negocio,Videojuegos y servicios de red,36,PlayStation,2025 (ej. fiscal)
+sony,negocio,Electrónica,19,"Televisores, cámaras, audio",2025 (ej. fiscal)
+sony,negocio,Música,15,,2025 (ej. fiscal)
+sony,negocio,Sensores de imagen,15,Cámaras de móviles (Apple),2025 (ej. fiscal)
+sony,negocio,Cine y televisión,12,,2025 (ej. fiscal)
+nintendo,negocio,Consolas Switch y sus juegos,92,,2025 (ej. fiscal)
+nintendo,negocio,"Móvil, licencias y otros",8,,2025 (ej. fiscal)
+lockheed,negocio,Aeronáutica,40,"Caza F-35 (en torno a una cuarta parte de todas las ventas), F-16, C-130",2025
+lockheed,negocio,Sistemas rotatorios y de misión,24,"Helicópteros Sikorsky, radares, Aegis",2025
+lockheed,negocio,Misiles y control de fuego,18,"PAC-3, HIMARS, Javelin",2025
+lockheed,negocio,Espacio,18,"Satélites, Orion, misiles estratégicos",2025
+lockheed,cliente,Gobierno de EE. UU.,73,,2025
+lockheed,cliente,Gobiernos extranjeros,26,,2025
+lockheed,cliente,Comercial,1,,2025
+rtx,negocio,Pratt & Whitney,36,Motores de avión,2025
+rtx,negocio,Collins Aerospace,33,Sistemas y aviónica,2025
+rtx,negocio,Raytheon,31,Misiles y defensa antiaérea,2025
+boeing,negocio,Aviones comerciales,46,,2025
+boeing,negocio,"Defensa, espacio y seguridad",31,,2025
+boeing,negocio,Servicios,23,,2025
+airbus,negocio,Aviones comerciales,72,,2025
+airbus,negocio,Defensa y espacio,17,,2025
+airbus,negocio,Helicópteros,11,,2025
+rheinmetall,negocio,Sistemas de vehículos,38,Blindados y camiones militares,2025
+rheinmetall,negocio,Armas y munición,30,Artillería y munición de gran calibre,2025
+rheinmetall,negocio,Soluciones electrónicas,19,Defensa aérea y digitalización,2025
+rheinmetall,negocio,Negocio civil,13,Componentes de automoción (en venta),2025
+rheinmetall,geografia,Alemania,35,,2025
+rheinmetall,geografia,Resto de Europa,45,,2025
+rheinmetall,geografia,Resto del mundo,20,,2025
+bae,negocio,Aire,30,"Eurofighter, F-35, Tempest",2025
+bae,negocio,Sistemas electrónicos,24,,2025
+bae,negocio,Marítimo,22,Submarinos y fragatas,2025
+bae,negocio,Plataformas y servicios,16,Vehículos de combate,2025
+bae,negocio,Ciberseguridad e inteligencia,8,,2025
+northrop,negocio,Aeronáutica,30,Bombardero B-21,2025
+northrop,negocio,Sistemas de misión,27,,2025
+northrop,negocio,Espacio,24,,2025
+northrop,negocio,Sistemas de defensa,19,,2025
+gd,negocio,Sistemas marinos,32,Submarinos,2025
+gd,negocio,Tecnologías,26,,2025
+gd,negocio,Aeroespacial,24,Aviones Gulfstream,2025
+gd,negocio,Sistemas de combate,18,Carros Abrams y blindados,2025
+indra,negocio,Minsait (tecnología de la información),55,,2025
+indra,negocio,Defensa,24,,2025
+indra,negocio,Tráfico aéreo,11,,2025
+indra,negocio,Movilidad,8,,2025
+indra,negocio,Espacio,2,,2025
+iberdrola,negocio,Redes eléctricas,50,Por beneficio bruto de explotación (EBITDA),2025
+iberdrola,negocio,Producción de electricidad y clientes,50,Por EBITDA,2025
+iberdrola,geografia,España,38,Por EBITDA,2025
+iberdrola,geografia,Reino Unido,20,Por EBITDA,2025
+iberdrola,geografia,Estados Unidos,19,Por EBITDA,2025
+iberdrola,geografia,Brasil,13,Por EBITDA,2025
+iberdrola,geografia,México y resto,10,Por EBITDA,2025
+repsol,negocio,Exploración y producción,42,Por resultado ajustado; muy sensible al precio del crudo,2025
+repsol,negocio,Industrial (refino y química),30,Por resultado ajustado; depende del margen de refino,2025
+repsol,negocio,"Cliente (estaciones, luz y gas)",22,Por resultado ajustado,2025
+repsol,negocio,Generación baja en carbono,6,Por resultado ajustado,2025
+santander,negocio,Banca minorista y comercial,48,Por beneficio,2025
+santander,negocio,Banca corporativa y de inversión,19,Por beneficio,2025
+santander,negocio,Consumo digital,15,Financiación de coches y Openbank; por beneficio,2025
+santander,negocio,Gestión de patrimonios y seguros,12,Por beneficio,2025
+santander,negocio,Pagos,6,Por beneficio,2025
+santander,geografia,España,27,Por beneficio,2025
+santander,geografia,Brasil,15,Por beneficio,2025
+santander,geografia,México,12,Por beneficio,2025
+santander,geografia,Reino Unido,9,Por beneficio,2025
+santander,geografia,Estados Unidos,9,Por beneficio,2025
+santander,geografia,Resto,28,Por beneficio,2025
+bbva,geografia,México,47,Por beneficio,2025
+bbva,geografia,España,36,Por beneficio,2025
+bbva,geografia,Turquía,7,Por beneficio,2025
+bbva,geografia,América del Sur,6,Por beneficio,2025
+bbva,geografia,Resto,4,Por beneficio,2025
+inditex,negocio,Zara y Zara Home,72,,2025 (ej. fiscal)
+inditex,negocio,Bershka,8,,2025 (ej. fiscal)
+inditex,negocio,Stradivarius,7,,2025 (ej. fiscal)
+inditex,negocio,Pull&Bear,6,,2025 (ej. fiscal)
+inditex,negocio,Massimo Dutti,5,,2025 (ej. fiscal)
+inditex,negocio,Oysho,2,,2025 (ej. fiscal)
+inditex,geografia,Europa sin España,50,,2025 (ej. fiscal)
+inditex,geografia,América,19,,2025 (ej. fiscal)
+inditex,geografia,Asia y resto,16,,2025 (ej. fiscal)
+inditex,geografia,España,15,,2025 (ej. fiscal)
+inditex,cliente,Particulares,100,Vende directamente al público en tiendas y por internet: no tiene grandes clientes,2025
+telefonica,geografia,España,34,,2025
+telefonica,geografia,Brasil,26,,2025
+telefonica,geografia,Alemania,22,,2025
+telefonica,geografia,Hispanoamérica y otros,18,En proceso de venta,2025
+visa,negocio,Procesamiento de datos,37,Sobre ingresos brutos,2025 (ej. fiscal)
+visa,negocio,Servicios,31,Sobre ingresos brutos,2025 (ej. fiscal)
+visa,negocio,Transacciones internacionales,25,Sobre ingresos brutos,2025 (ej. fiscal)
+visa,negocio,Otros,7,Sobre ingresos brutos,2025 (ej. fiscal)
+mastercard,negocio,Red de pagos,61,,2025
+mastercard,negocio,Servicios de valor añadido,39,"Ciberseguridad, datos, consultoría",2025
+novonordisk,negocio,Diabetes GLP-1,50,"Ozempic, Rybelsus",2025
+novonordisk,negocio,Obesidad,26,Wegovy,2025
+novonordisk,negocio,Insulinas,18,,2025
+novonordisk,negocio,Enfermedades raras,6,,2025
+novonordisk,geografia,Estados Unidos,56,,2025
+novonordisk,geografia,Resto del mundo,44,,2025
+lilly,negocio,Tirzepatida (Mounjaro y Zepbound),55,Diabetes y obesidad,2025
+lilly,negocio,Resto de medicamentos,45,"Verzenio, Trulicity, Taltz, Jardiance…",2025
+exxon,negocio,Exploración y producción,60,Por beneficio,2025
+exxon,negocio,Productos energéticos (refino),18,Por beneficio,2025
+exxon,negocio,Química,8,Por beneficio,2025
+exxon,negocio,Productos especializados,14,Por beneficio,2025
+coreweave,cliente,Microsoft,60,Muy dependiente de un solo cliente (62 % en 2024); OpenAI y Meta ganan peso,2025
+coreweave,cliente,"OpenAI, Meta y otros",40,,2025
+supermicro,negocio,Servidores y almacenamiento,96,Sobre todo servidores de IA con GPU de NVIDIA,2025 (ej. fiscal)
+supermicro,negocio,Subsistemas y accesorios,4,,2025 (ej. fiscal)
+dell,negocio,Infraestructura (servidores y almacenamiento),50,Los servidores de IA son lo que más crece,2025 (ej. fiscal 2026)
+dell,negocio,PC y periféricos,46,,2025 (ej. fiscal 2026)
+dell,negocio,Otros,4,,2025 (ej. fiscal 2026)
+arista,cliente,Microsoft y Meta,35,Sus dos mayores clientes,2025
+arista,cliente,Resto,65,,2025
+asml,cliente,"Fabricantes de chips lógicos (TSMC, Intel, Samsung)",65,,2025
+asml,cliente,"Fabricantes de memoria (SK Hynix, Micron, Samsung)",35,,2025
+asml,geografia,Taiwán,25,,2025
+asml,geografia,Corea del Sur,22,,2025
+asml,geografia,China,22,En descenso por los controles de exportación,2025
+asml,geografia,Estados Unidos y resto,31,,2025
+amadeus,negocio,Distribución aérea,48,Reservas de agencias,2025
+amadeus,negocio,Soluciones para aerolíneas,37,Sistemas de reservas y embarque,2025
+amadeus,negocio,Hoteles y otros,15,,2025
+aena,negocio,Aeronáutico,53,Tasas a aerolíneas y pasajeros,2025
+aena,negocio,Comercial,32,"Tiendas, restauración y aparcamientos",2025
+aena,negocio,Internacional e inmobiliario,15,"Luton, Brasil",2025
+ferrovial,negocio,Construcción,78,"Por ventas; el valor está en las autopistas, que consolidan poco",2025
+ferrovial,negocio,Autopistas,15,Por ventas; la 407 ETR de Toronto y las de Texas,2025
+ferrovial,negocio,"Aeropuertos, energía y otros",7,,2025
+cellnex,negocio,Torres de telecomunicaciones,82,Alquiler a operadoras,2025
+cellnex,negocio,"Fibra, conectividad y difusión",18,,2025
+acs,negocio,Turner (construcción en EE. UU.),42,Centros de datos y edificación,2025
+acs,negocio,CIMIC (Australia),22,,2025
+acs,negocio,"Ingeniería y construcción (Dragados, Hochtief)",30,,2025
+acs,negocio,Infraestructuras y servicios,6,Abertis,2025
+acs,geografia,Norteamérica,60,,2025
+acs,geografia,Asia-Pacífico,20,,2025
+acs,geografia,Europa,20,,2025

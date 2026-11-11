@@ -1,0 +1,299 @@
+id,nombre,tickers,sector,pais,alias
+nvidia,NVIDIA,NVDA,Semiconductores,EE. UU.,Nvidia Corporation
+amd,AMD,AMD,Semiconductores,EE. UU.,Advanced Micro Devices
+intel,Intel,INTC,Semiconductores,EE. UU.,Intel Corporation
+tsmc,TSMC,TSM|2330.TW,Semiconductores,Taiwán,Taiwan Semiconductor Manufacturing
+samsung,Samsung Electronics,005930.KS,Semiconductores y electrónica,Corea del Sur,Samsung
+skhynix,SK hynix,000660.KS,Semiconductores (memoria),Corea del Sur,SK Hynix
+micron,Micron,MU,Semiconductores (memoria),EE. UU.,Micron Technology
+asml,ASML,ASML|ASML.AS,Equipos para semiconductores,Países Bajos,ASML Holding
+zeiss,Carl Zeiss SMT,,Óptica,Alemania,Zeiss (privada)
+amat,Applied Materials,AMAT,Equipos para semiconductores,EE. UU.,
+lam,Lam Research,LRCX,Equipos para semiconductores,EE. UU.,
+kla,KLA,KLAC,Equipos para semiconductores,EE. UU.,KLA Corporation
+tel,Tokyo Electron,8035.T,Equipos para semiconductores,Japón,
+broadcom,Broadcom,AVGO,Semiconductores,EE. UU.,
+qualcomm,Qualcomm,QCOM,Semiconductores,EE. UU.,
+arm,Arm Holdings,ARM,Diseño de chips (licencias),Reino Unido,Arm
+marvell,Marvell Technology,MRVL,Semiconductores,EE. UU.,Marvell
+synopsys,Synopsys,SNPS,Software de diseño de chips,EE. UU.,
+cadence,Cadence Design Systems,CDNS,Software de diseño de chips,EE. UU.,Cadence
+amkor,Amkor Technology,AMKR,Encapsulado de chips,EE. UU.,Amkor
+ase,ASE Technology,ASX|3711.TW,Encapsulado de chips,Taiwán,ASE Group
+stmicro,STMicroelectronics,STM|STMPA.PA,Semiconductores,Suiza/Europa,ST
+infineon,Infineon,IFX.DE,Semiconductores,Alemania,Infineon Technologies
+nxp,NXP Semiconductors,NXPI,Semiconductores,Países Bajos,NXP
+mobileye,Mobileye,MBLY,Chips para conducción asistida,Israel,
+foxconn,Foxconn (Hon Hai),2317.TW,Fabricación electrónica,Taiwán,Hon Hai Precision Industry
+quanta,Quanta Computer,2382.TW,Servidores,Taiwán,
+wistron,Wistron,3231.TW,Servidores,Taiwán,
+luxshare,Luxshare Precision,002475.SZ,Fabricación electrónica,China,
+supermicro,Super Micro Computer,SMCI,Servidores,EE. UU.,Supermicro
+dell,Dell Technologies,DELL,Servidores y PC,EE. UU.,Dell
+hpe,Hewlett Packard Enterprise,HPE,Servidores,EE. UU.,HPE
+corning,Corning,GLW,Vidrio y materiales,EE. UU.,
+sony,Sony,SONY|6758.T,Electrónica,Japón,
+skyworks,Skyworks Solutions,SWKS,Semiconductores,EE. UU.,Skyworks
+cirrus,Cirrus Logic,CRUS,Semiconductores,EE. UU.,
+lgdisplay,LG Display,LPL|034220.KS,Pantallas,Corea del Sur,
+apple,Apple,AAPL,Electrónica de consumo,EE. UU.,Apple Inc
+microsoft,Microsoft,MSFT,Software y nube,EE. UU.,Microsoft Corporation
+alphabet,Alphabet (Google),GOOGL|GOOG,Internet y nube,EE. UU.,Google
+amazon,Amazon (AWS),AMZN,Comercio electrónico y nube,EE. UU.,Amazon.com|AWS
+meta,Meta Platforms,META,Internet,EE. UU.,Meta|Facebook
+oracle,Oracle,ORCL,Software y nube,EE. UU.,Oracle Corporation
+coreweave,CoreWeave,CRWV,Nube de IA (centros de datos),EE. UU.,
+nebius,Nebius Group,NBIS,Nube de IA (centros de datos),Países Bajos,Nebius
+openai,OpenAI,,Inteligencia artificial,EE. UU.,OpenAI (privada)
+anthropic,Anthropic,,Inteligencia artificial,EE. UU.,Anthropic (privada)
+xai,xAI,,Inteligencia artificial,EE. UU.,xAI (privada)
+tesla,Tesla,TSLA,Automoción eléctrica,EE. UU.,Tesla Inc
+gm,General Motors,GM,Automoción,EE. UU.,GM
+ford,Ford,F,Automoción,EE. UU.,Ford Motor
+stellantis,Stellantis,STLA|STLAM.MI,Automoción,Países Bajos,
+volkswagen,Volkswagen,VOW3.DE,Automoción,Alemania,Volkswagen Group|VW
+bmw,BMW,BMW.DE,Automoción,Alemania,
+mercedes,Mercedes-Benz,MBG.DE,Automoción,Alemania,Mercedes
+panasonic,Panasonic,6752.T,Baterías y electrónica,Japón,
+lges,LG Energy Solution,373220.KS,Baterías,Corea del Sur,LGES
+catl,CATL,300750.SZ|3750.HK,Baterías,China,Contemporary Amperex Technology
+samsungsdi,Samsung SDI,006400.KS,Baterías,Corea del Sur,
+skon,SK On,,Baterías,Corea del Sur,SK On (filial de SK Innovation)
+lear,Lear,LEA,Componentes de automoción,EE. UU.,Lear Corporation
+aptiv,Aptiv,APTV,Componentes de automoción,Irlanda,
+magna,Magna International,MGA,Componentes de automoción,Canadá,Magna
+gestamp,Gestamp,GEST.MC,Componentes de automoción,España,
+cie,CIE Automotive,CIE.MC,Componentes de automoción,España,
+airbus,Airbus,AIR.PA,Aeroespacial y defensa,Francia/Europa,
+boeing,Boeing,BA,Aeroespacial y defensa,EE. UU.,
+geaero,GE Aerospace,GE,Motores de avión,EE. UU.,General Electric
+safran,Safran,SAF.PA,Motores y equipos aeronáuticos,Francia,
+cfm,CFM International,,Motores de avión,EE. UU./Francia,CFM (50% GE Aerospace / 50% Safran)
+rtx,RTX (Pratt & Whitney),RTX,Aeroespacial y defensa,EE. UU.,Raytheon|Pratt & Whitney|Collins Aerospace
+rollsroyce,Rolls-Royce,RR.L,Motores de avión,Reino Unido,
+itpaero,ITP Aero,,Motores de avión (componentes),España,ITP Aero (privada)
+hexcel,Hexcel,HXL,Materiales compuestos,EE. UU.,
+howmet,Howmet Aerospace,HWM,Componentes aeronáuticos,EE. UU.,Howmet
+spirit,Spirit AeroSystems,,Estructuras aeronáuticas,EE. UU.,Spirit Aero
+thales,Thales,HO.PA,Defensa y electrónica,Francia,
+honeywell,Honeywell,HON,Industria y aeroespacial,EE. UU.,
+lockheed,Lockheed Martin,LMT,Defensa,EE. UU.,
+northrop,Northrop Grumman,NOC,Defensa,EE. UU.,
+bae,BAE Systems,BA.L,Defensa,Reino Unido,
+l3harris,L3Harris,LHX,Defensa,EE. UU.,
+gd,General Dynamics,GD,Defensa,EE. UU.,
+rheinmetall,Rheinmetall,RHM.DE,Defensa,Alemania,
+leonardo,Leonardo,LDO.MI,Defensa y aeroespacial,Italia,
+indra,Indra,IDR.MC,Defensa y tecnología,España,Indra Sistemas
+navantia,Navantia,,Construcción naval militar,España,Navantia (pública)
+dod_eeuu,Departamento de Defensa de EE. UU.,,Gobierno,EE. UU.,Pentágono|DoD
+mindef_es,Ministerio de Defensa de España,,Gobierno,España,
+mod_uk,Ministerio de Defensa del Reino Unido,,Gobierno,Reino Unido,MoD
+bundeswehr,Fuerzas Armadas de Alemania,,Gobierno,Alemania,Bundeswehr
+iag,IAG,IAG.MC|IAG.L,Aerolíneas,España/Reino Unido,Iberia|British Airways|Vueling
+ryanair,Ryanair,RYA.IR|RYAAY,Aerolíneas,Irlanda,
+easyjet,easyJet,EZJ.L,Aerolíneas,Reino Unido,
+lufthansa,Lufthansa,LHA.DE,Aerolíneas,Alemania,
+afklm,Air France-KLM,AF.PA,Aerolíneas,Francia/Países Bajos,
+delta,Delta Air Lines,DAL,Aerolíneas,EE. UU.,
+united,United Airlines,UAL,Aerolíneas,EE. UU.,
+amadeus,Amadeus,AMS.MC,Software de viajes,España,Amadeus IT Group
+aena,Aena,AENA.MC,Aeropuertos,España,
+iberdrola,Iberdrola,IBE.MC,Eléctricas,España,
+siemensenergy,Siemens Energy,ENR.DE,Equipos energéticos,Alemania,Siemens Gamesa
+vestas,Vestas,VWS.CO,Aerogeneradores,Dinamarca,
+nordex,Nordex,NDX1.DE,Aerogeneradores,Alemania,
+acciona,Acciona,ANA.MC,Infraestructuras y energía,España,
+accionaenergia,Acciona Energía,ANE.MC,Renovables,España,
+gevernova,GE Vernova,GEV,Equipos energéticos,EE. UU.,
+orsted,Ørsted,ORSTED.CO,Renovables,Dinamarca,Orsted
+constellation,Constellation Energy,CEG,Eléctricas (nuclear),EE. UU.,
+talen,Talen Energy,TLN,Eléctricas (nuclear),EE. UU.,
+repsol,Repsol,REP.MC,Petróleo y gas,España,
+tecnicasreunidas,Técnicas Reunidas,TRE.MC,Ingeniería energética,España,
+aramco,Saudi Aramco,2222.SR,Petróleo y gas,Arabia Saudí,Aramco
+adnoc,ADNOC,,Petróleo y gas,Emiratos Árabes Unidos,ADNOC (pública)
+slb,SLB,SLB,Servicios petroleros,EE. UU.,Schlumberger
+halliburton,Halliburton,HAL,Servicios petroleros,EE. UU.,
+exxon,ExxonMobil,XOM,Petróleo y gas,EE. UU.,Exxon Mobil
+chevron,Chevron,CVX,Petróleo y gas,EE. UU.,
+visa,Visa,V,Pagos,EE. UU.,Visa Inc
+mastercard,Mastercard,MA,Pagos,EE. UU.,
+jpmorgan,JPMorgan Chase,JPM,Banca,EE. UU.,JPMorgan
+bofa,Bank of America,BAC,Banca,EE. UU.,
+citi,Citigroup,C,Banca,EE. UU.,Citi
+wells,Wells Fargo,WFC,Banca,EE. UU.,
+santander,Banco Santander,SAN.MC|SAN,Banca,España,Santander
+bbva,BBVA,BBVA.MC|BBVA,Banca,España,
+caixabank,CaixaBank,CABK.MC,Banca,España,
+fiserv,Fiserv,FI,Procesamiento de pagos,EE. UU.,
+globalpayments,Global Payments,GPN,Procesamiento de pagos,EE. UU.,
+adyen,Adyen,ADYEN.AS,Procesamiento de pagos,Países Bajos,
+telefonica,Telefónica,TEF.MC|TEF,Telecomunicaciones,España,Telefonica
+ericsson,Ericsson,ERIC-B.ST|ERIC,Equipos de telecomunicaciones,Suecia,
+nokia,Nokia,NOKIA.HE|NOK,Equipos de telecomunicaciones,Finlandia,
+cellnex,Cellnex,CLNX.MC,Torres de telecomunicaciones,España,
+orange,Orange,ORA.PA,Telecomunicaciones,Francia,
+vodafone,Vodafone,VOD.L,Telecomunicaciones,Reino Unido,
+acs,ACS,ACS.MC,Construcción e infraestructuras,España,Grupo ACS
+hochtief,Hochtief,HOT.DE,Construcción,Alemania,Turner Construction
+talgo,Talgo,TLGO.MC,Material ferroviario,España,
+caf,CAF,CAF.MC,Material ferroviario,España,Construcciones y Auxiliar de Ferrocarriles
+renfe,Renfe,,Transporte ferroviario,España,Renfe (pública)
+db,Deutsche Bahn,,Transporte ferroviario,Alemania,Deutsche Bahn (pública)
+rovi,Laboratorios Rovi,ROVI.MC,Farmacéutica,España,Rovi
+moderna,Moderna,MRNA,Biotecnología,EE. UU.,
+novonordisk,Novo Nordisk,NOVO-B.CO|NVO,Farmacéutica,Dinamarca,
+catalent,Catalent,,Fabricación farmacéutica (CDMO),EE. UU.,Catalent (Novo Holdings)
+verizon,Verizon,VZ,Telecomunicaciones,EE. UU.,Verizon Communications
+att,AT&T,T,Telecomunicaciones,EE. UU.,AT&T Inc
+tmobile,T-Mobile US,TMUS,Telecomunicaciones,EE. UU.,T-Mobile
+bestbuy,Best Buy,BBY,Distribución,EE. UU.,Best Buy Co
+nintendo,Nintendo,7974.T|NTDOY,Videojuegos,Japón,Nintendo Co
+valve,Valve,,Videojuegos,EE. UU.,Valve Corporation|Steam
+ea,Electronic Arts,EA,Videojuegos,EE. UU.,EA
+take2,Take-Two Interactive,TTWO,Videojuegos,EE. UU.,Take-Two|Rockstar Games
+ubisoft,Ubisoft,UBI.PA,Videojuegos,Francia,Ubisoft Entertainment
+roblox,Roblox,RBLX,Videojuegos,EE. UU.,Roblox Corporation
+tencent,Tencent,0700.HK|TCEHY,Internet y videojuegos,China,Tencent Holdings
+asus,ASUS,2357.TW,Ordenadores y componentes,Taiwán,ASUSTeK Computer
+msi,MSI,2377.TW,Ordenadores y componentes,Taiwán,Micro-Star International
+gigabyte,Gigabyte,2376.TW,Ordenadores y componentes,Taiwán,Giga-Byte Technology
+lenovo,Lenovo,0992.HK|LNVGY,Ordenadores y servidores,China,Lenovo Group
+hp,HP,HPQ,Ordenadores e impresoras,EE. UU.,HP Inc
+softbank,SoftBank,9984.T|SFTBY,Inversión tecnológica,Japón,SoftBank Group
+bytedance,ByteDance,,Internet,China,TikTok
+alibaba,Alibaba,BABA|9988.HK,Comercio electrónico y nube,China,Alibaba Group
+vertiv,Vertiv,VRT,Refrigeración y energía para centros de datos,EE. UU.,Vertiv Holdings
+arista,Arista Networks,ANET,Redes para centros de datos,EE. UU.,Arista
+eaton,Eaton,ETN,Equipos eléctricos,EE. UU.,Eaton Corporation
+schneider,Schneider Electric,SU.PA,Equipos eléctricos,Francia,Schneider
+equinix,Equinix,EQIX,Centros de datos (alquiler),EE. UU.,
+digitalrealty,Digital Realty,DLR,Centros de datos (alquiler),EE. UU.,Digital Realty Trust
+celestica,Celestica,CLS,Fabricación electrónica,Canadá,
+coherent,Coherent,COHR,Óptica para centros de datos,EE. UU.,Coherent Corp
+lumentum,Lumentum,LITE,Óptica para centros de datos,EE. UU.,Lumentum Holdings
+amphenol,Amphenol,APH,Conectores y cables,EE. UU.,Amphenol Corporation
+cisco,Cisco,CSCO,Equipos de red,EE. UU.,Cisco Systems
+palantir,Palantir,PLTR,Software de análisis de datos,EE. UU.,Palantir Technologies
+salesforce,Salesforce,CRM,Software,EE. UU.,
+sap,SAP,SAP.DE|SAP,Software,Alemania,SAP SE
+ibm,IBM,IBM,Tecnología y consultoría,EE. UU.,International Business Machines
+accenture,Accenture,ACN,Consultoría tecnológica,Irlanda,
+netflix,Netflix,NFLX,Entretenimiento,EE. UU.,
+spotify,Spotify,SPOT,Música en streaming,Suecia,Spotify Technology
+huawei,Huawei,,Equipos de telecomunicaciones,China,Huawei Technologies
+smic,SMIC,0981.HK,Semiconductores (fabricación),China,Semiconductor Manufacturing International
+xiaomi,Xiaomi,1810.HK,Electrónica y coches eléctricos,China,Xiaomi Corporation
+globalfoundries,GlobalFoundries,GFS,Semiconductores (fabricación),EE. UU.,
+onsemi,onsemi,ON,Semiconductores de potencia,EE. UU.,ON Semiconductor
+texas,Texas Instruments,TXN,Semiconductores analógicos,EE. UU.,TI
+analog,Analog Devices,ADI,Semiconductores analógicos,EE. UU.,ADI
+besi,BE Semiconductor,BESI.AS,Equipos para semiconductores,Países Bajos,Besi
+asmi,ASM International,ASM.AS,Equipos para semiconductores,Países Bajos,ASMI
+lilly,Eli Lilly,LLY,Farmacéutica,EE. UU.,Lilly
+pfizer,Pfizer,PFE,Farmacéutica,EE. UU.,
+merck,Merck & Co,MRK,Farmacéutica,EE. UU.,MSD
+jnj,Johnson & Johnson,JNJ,Farmacéutica y tecnología médica,EE. UU.,J&J
+astrazeneca,AstraZeneca,AZN.L|AZN,Farmacéutica,Reino Unido,
+novartis,Novartis,NOVN.SW|NVS,Farmacéutica,Suiza,
+roche,Roche,ROG.SW,Farmacéutica y diagnóstico,Suiza,Roche Holding
+sanofi,Sanofi,SAN.PA|SNY,Farmacéutica,Francia,
+gsk,GSK,GSK.L|GSK,Farmacéutica,Reino Unido,GlaxoSmithKline
+bayer,Bayer,BAYN.DE,Farmacéutica y agroquímica,Alemania,
+amgen,Amgen,AMGN,Biotecnología,EE. UU.,
+lonza,Lonza,LONN.SW,Fabricación farmacéutica (CDMO),Suiza,Lonza Group
+thermo,Thermo Fisher,TMO,Equipos y servicios de laboratorio,EE. UU.,Thermo Fisher Scientific
+samsungbio,Samsung Biologics,207940.KS,Fabricación farmacéutica (CDMO),Corea del Sur,
+mckesson,McKesson,MCK,Distribución farmacéutica,EE. UU.,
+cencora,Cencora,COR,Distribución farmacéutica,EE. UU.,AmerisourceBergen
+cardinal,Cardinal Health,CAH,Distribución farmacéutica,EE. UU.,
+cvs,CVS Health,CVS,Farmacias y seguros de salud,EE. UU.,
+grifols,Grifols,GRF.MC,Hemoderivados,España,
+almirall,Almirall,ALM.MC,Farmacéutica,España,
+westpharma,West Pharmaceutical,WST,Envases y componentes para inyectables,EE. UU.,West Pharmaceutical Services
+shell,Shell,SHEL.L|SHEL,Petróleo y gas,Reino Unido,
+bp,BP,BP.L|BP,Petróleo y gas,Reino Unido,
+totalenergies,TotalEnergies,TTE.PA|TTE,Petróleo y gas,Francia,Total
+eni,Eni,ENI.MI,Petróleo y gas,Italia,
+equinor,Equinor,EQNR.OL|EQNR,Petróleo y gas,Noruega,
+cheniere,Cheniere Energy,LNG,Gas natural licuado,EE. UU.,Cheniere
+naturgy,Naturgy,NTGY.MC,Gas y electricidad,España,
+endesa,Endesa,ELE.MC,Eléctricas,España,
+enel,Enel,ENEL.MI,Eléctricas,Italia,
+redeia,Redeia,RED.MC,Red eléctrica,España,Red Eléctrica
+enagas,Enagás,ENG.MC,Red de gas,España,Enagas
+moeve,Moeve,,Petróleo y gas,España,Cepsa
+bakerhughes,Baker Hughes,BKR,Servicios y equipos energéticos,EE. UU.,
+nextera,NextEra Energy,NEE,Eléctricas y renovables,EE. UU.,NextEra
+firstsolar,First Solar,FSLR,Paneles solares,EE. UU.,
+solaria,Solaria,SLR.MC,Renovables,España,
+cameco,Cameco,CCJ,Uranio,Canadá,
+sonatrach,Sonatrach,,Petróleo y gas,Argelia,
+qatarenergy,QatarEnergy,,Petróleo y gas,Catar,Qatar Energy
+siemens,Siemens,SIE.DE,Industria y automatización,Alemania,Siemens AG
+abb,ABB,ABBN.SW,Electrificación y automatización,Suiza,
+hitachi,Hitachi,6501.T,Industria y redes eléctricas,Japón,Hitachi Energy
+prysmian,Prysmian,PRY.MI,Cables eléctricos,Italia,
+nexans,Nexans,NEX.PA,Cables eléctricos,Francia,
+saab,Saab,SAAB-B.ST,Defensa,Suecia,Saab AB
+dassault,Dassault Aviation,AM.PA,Defensa y aviación,Francia,
+kongsberg,Kongsberg,KOG.OL,Defensa,Noruega,Kongsberg Gruppen
+hensoldt,Hensoldt,HAG.DE,Electrónica de defensa,Alemania,
+mbda,MBDA,,Misiles,Europa,
+knds,KNDS,,Vehículos militares,Alemania y Francia,Krauss-Maffei Wegmann|Nexter
+renk,Renk,R3NK.DE,Transmisiones para vehículos militares,Alemania,Renk Group
+mtu,MTU Aero Engines,MTX.DE,Motores de avión,Alemania,MTU
+hii,Huntington Ingalls,HII,Construcción naval militar,EE. UU.,HII
+anduril,Anduril,,Defensa (drones y software),EE. UU.,Anduril Industries
+spacex,SpaceX,,Espacio,EE. UU.,Starlink
+embraer,Embraer,ERJ,Aviación,Brasil,
+nasa,NASA,,Gobierno,EE. UU.,
+otan,OTAN,,Organismo internacional,Internacional,NATO
+mindef_pl,Ministerio de Defensa de Polonia,,Gobierno,Polonia,
+mindef_fr,Ministerio de Defensa de Francia,,Gobierno,Francia,DGA
+ucrania,Gobierno de Ucrania,,Gobierno,Ucrania,
+escribano,EM&E (Escribano),,Defensa,España,Escribano Mechanical & Engineering
+santabarbara,Santa Bárbara Sistemas,,Vehículos militares,España,GDELS
+oesia,Grupo Oesía (Tecnobit),,Electrónica de defensa,España,Tecnobit
+sener,Sener,,Ingeniería y defensa,España,
+toyota,Toyota,7203.T|TM,Automoción,Japón,Toyota Motor
+byd,BYD,1211.HK|BYDDY,Automoción eléctrica y baterías,China,
+hyundai,Hyundai,005380.KS,Automoción,Corea del Sur,Hyundai Motor
+renault,Renault,RNO.PA,Automoción,Francia,
+bosch,Bosch,,Componentes de automoción,Alemania,Robert Bosch
+continental,Continental,CON.DE,Componentes de automoción y neumáticos,Alemania,
+zf,ZF,,Componentes de automoción,Alemania,ZF Friedrichshafen
+denso,Denso,6902.T,Componentes de automoción,Japón,
+valeo,Valeo,FR.PA,Componentes de automoción,Francia,
+michelin,Michelin,ML.PA,Neumáticos,Francia,
+albemarle,Albemarle,ALB,Litio,EE. UU.,
+sqm,SQM,SQM,Litio,Chile,Sociedad Química y Minera
+glencore,Glencore,GLEN.L,Minería y materias primas,Suiza,
+riotinto,Rio Tinto,RIO.L|RIO,Minería,Reino Unido,
+bhp,BHP,BHP.AX|BHP,Minería,Australia,BHP Group
+freeport,Freeport-McMoRan,FCX,Minería de cobre,EE. UU.,Freeport
+vale,Vale,VALE,Minería de hierro,Brasil,
+arcelormittal,ArcelorMittal,MTS.MC|MT,Acero,Luxemburgo,
+acerinox,Acerinox,ACX.MC,Acero inoxidable,España,
+waymo,Waymo,,Conducción autónoma,EE. UU.,
+uber,Uber,UBER,Movilidad,EE. UU.,Uber Technologies
+inditex,Inditex,ITX.MC,Moda,España,Zara|Industria de Diseño Textil
+ferrovial,Ferrovial,FER.MC|FER,Infraestructuras,España,
+logista,Logista,LOG.MC,Distribución,España,
+imperial,Imperial Brands,IMB.L,Tabaco,Reino Unido,Altadis
+philipmorris,Philip Morris,PM,Tabaco,EE. UU.,Philip Morris International
+mapfre,Mapfre,MAP.MC,Seguros,España,
+sacyr,Sacyr,SCYR.MC,Construcción e infraestructuras,España,
+fluidra,Fluidra,FDR.MC,Equipos de piscina,España,
+mecalux,Mecalux,,Almacenes automatizados,España,
+turner,Turner Construction,,Construcción,EE. UU.,Turner
+paypal,PayPal,PYPL,Pagos,EE. UU.,PayPal Holdings
+amex,American Express,AXP,Pagos,EE. UU.,Amex
+blackrock,BlackRock,BLK,Gestión de activos,EE. UU.,
+walmart,Walmart,WMT,Distribución,EE. UU.,
+costco,Costco,COST,Distribución,EE. UU.,Costco Wholesale
+disney,Disney,DIS,Entretenimiento,EE. UU.,Walt Disney
+maersk,Maersk,MAERSK-B.CO,Transporte marítimo,Dinamarca,A.P. Moller-Maersk
+caterpillar,Caterpillar,CAT,Maquinaria,EE. UU.,
+deere,Deere,DE,Maquinaria agrícola,EE. UU.,John Deere
