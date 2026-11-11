@@ -1,5 +1,21 @@
 # Novedades
 
+## Versión 2.3 (noviembre de 2026)
+
+- **💡 Ideas** (menú principal): las 10 acciones más atractivas de un grupo (IBEX 35, Europa, EE. UU., Nasdaq-100) para comprar
+  a 6-12 meses, con acceso directo a su análisis.
+- **📌 Picks del día** pasa al menú principal.
+- Corregido: el análisis ya no sugiere «esperar a que baje» a un precio que está por encima del actual. Cuando el precio da margen
+  pero el negocio es flojo, lo dice claramente («solo como apuesta pequeña»).
+
+## Versión 2.2 (noviembre de 2026)
+
+- **📌 Picks del día** (📈 Mercados): las empresas que presentan resultados en los próximos días, ordenadas por interés, con lo
+  que pasó otras veces («si bate previsiones…, si falla…»), el movimiento que descuentan las opciones y si llegan subiendo o castigadas.
+- **Veredicto por plazos** en 🧠 Análisis y 🚦 Señales: corto (1 semana-1 mes), medio (3-6 meses) y largo (12-18 meses), con una
+  explicación de qué hacer cuando no coinciden.
+- **🚦 Señales** admite operaciones de hasta 6 meses: el stop y el objetivo se ajustan al plazo.
+
 ## Versión 2.1.5
 
 - Reúne los arreglos de las versiones 2.1.2 a 2.1.4 (inicio más rápido, descarga en Excel y buscador por nombre).

@@ -886,9 +886,32 @@ def recomendacion(m: dict, cal: dict, esc: dict, tec: dict, trampa: list[str], r
         juicio = "justo"
     else:
         juicio = "caro"
-    entrada = base["centro"] * (1 + esc.get("dividendo_periodo", 0)) / (1 + exigido)
-    comprar = (por_valoracion and rb >= exigido and rb >= 0.6 * abs(min(rp, 0)) and not trampa and rp > -0.40 and cal["media"] >= 0.8
-               and "previsto por analistas" not in esc.get("metodo", ""))
+    div = esc.get("dividendo_periodo", 0)
+    solo_previsiones = "previsto por analistas" in esc.get("metodo", "")
+
+    def cumple_precio(p_):
+        """¿A ese precio de compra salen las cuentas? (rentabilidad exigida, pérdida acotada y proporción razonable entre ambas)"""
+        rb_, rp_ = base["centro"] / p_ - 1 + div, (baj["centro"] / p_ - 1 + div) if baj else -0.3
+        return rb_ >= exigido and rb_ >= 0.6 * abs(min(rp_, 0)) and rp_ > -0.40
+
+    # Precio de entrada: el más alto, por debajo del actual, al que sí salen las cuentas
+    entrada = None
+    if not cumple_precio(precio):
+        p_ = precio * 0.99
+        while p_ > precio * 0.35:
+            if cumple_precio(p_):
+                entrada = p_
+                break
+            p_ *= 0.99
+    # Motivos que impiden comprar aunque el precio dé margen (no se arreglan esperando a que baje)
+    frenos = []
+    if cal["media"] < 0.8:
+        frenos.append("la calidad del negocio es mediocre")
+    if trampa:
+        frenos.append("hay señales de trampa de valor (" + "; ".join(trampa[:2]) + ")")
+    if solo_previsiones:
+        frenos.append("hoy no gana dinero y la valoración se apoya solo en previsiones de analistas")
+    comprar = por_valoracion and cumple_precio(precio) and not frenos
     evitar = (rb < -0.08) or (rb < 0 and cal["media"] < 0.8) or bool(trampa and cal["media"] < 1.2) or \
         (cal["media"] < 0.8 and rb < 0.20) or (rp < -0.50 and rb < 0.15)
     bajista_fuerte = tec.get("tendencia") == "bajista" and _ok(tec.get("vs_m200")) and tec["vs_m200"] < -0.15
@@ -914,15 +937,32 @@ def recomendacion(m: dict, cal: dict, esc: dict, tec: dict, trampa: list[str], r
         texto = (f"Al precio actual los riesgos pesan más que las oportunidades: {motivo}. "
                  f"Escenario base {_pct(rb, 0, True)}, pesimista {_pct(rp, 0, True)}. "
                  + ("Si ya la tienes, plantéate reducir en los rebotes en vez de añadir." if en_cartera else
-                    f"Solo empezaría a tener sentido por debajo de {_n(entrada, dec)} {mon}."))
+                    (f"Solo empezaría a tener sentido por debajo de {_n(entrada, dec)} {mon}." if entrada else
+                     "No hay un precio cercano al que cambie de opinión: tendrían que mejorar sus números.")))
     else:
         etiqueta, color = "🟡 MANTENER", "amarillo"
         titulo = "MANTENER" if en_cartera else "ESPERAR MEJOR PRECIO"
-        texto = (f"El escenario base da un {_pct(rb, 0, True)} en 12-18 meses y, para una empresa de calidad {cal['etiqueta'].lower()}, "
-                 f"pido al menos un {_pct(exigido, 0)} para tener margen de seguridad. "
-                 + ("Si ya la tienes, no hay motivo para vender, pero tampoco para comprar más a este precio. " if en_cartera else
-                    "No es mala empresa ni está disparatada de precio: simplemente no hay colchón si algo falla. ")
-                 + f"Precio de entrada sugerido: **{_n(entrada, dec)} {mon}** o menos (un {_pct(abs(entrada / precio - 1), 0)} por debajo del actual).")
+        if cumple_precio(precio) and frenos:
+            # Por precio saldría a cuenta, pero hay algo que no se arregla esperando a que baje
+            titulo = "MANTENER" if en_cartera else "SOLO COMO APUESTA PEQUEÑA"
+            texto = (f"Por precio saldría a cuenta: el escenario base da un {_pct(rb, 0, True)} en 12-18 meses, por encima del {_pct(exigido, 0)} "
+                     f"que exijo. Pero no la recomiendo como compra normal porque {' y '.join(frenos)}. Los números pueden cumplirse, pero "
+                     "con un negocio así el margen de error es grande. "
+                     + ("Si ya la tienes, mantén sin añadir." if en_cartera else
+                        "Si aun así te convence, que sea con poco dinero y sabiendo que es una apuesta, no una inversión tranquila."))
+            entrada = None
+        elif entrada is None:
+            texto = (f"El escenario base da un {_pct(rb, 0, True)} y el pesimista un {_pct(rp, 0, True)}: lo que puedes perder pesa demasiado "
+                     "frente a lo que puedes ganar, y no hay un precio razonable cercano al que eso cambie. "
+                     + ("Si ya la tienes, mantén sin añadir." if en_cartera else "Mejor esperar a que mejoren sus números."))
+        else:
+            motivo = (f"pido al menos un {_pct(exigido, 0)} para tener margen de seguridad" if rb < exigido else
+                      f"el escenario pesimista ({_pct(rp, 0, True)}) pesa demasiado frente a esa ganancia")
+            texto = (f"El escenario base da un {_pct(rb, 0, True)} en 12-18 meses y, para una empresa de calidad {cal['etiqueta'].lower()}, {motivo}. "
+                     + ("Si ya la tienes, no hay motivo para vender, pero tampoco para comprar más a este precio. " if en_cartera else
+                        "No es mala empresa ni está disparatada de precio: simplemente no hay colchón si algo falla. ")
+                     + ("Además, " + " y ".join(frenos) + ": aunque baje, que sea una posición pequeña. " if frenos else "")
+                     + f"Precio de entrada sugerido: **{_n(entrada, dec)} {mon}** o menos (un {_pct(abs(entrada / precio - 1), 0)} por debajo del actual).")
         if not por_valoracion:
             texto = ("No se puede valorar por beneficios (no los tiene o no son representativos), así que no hay forma honesta de decir que está "
                      "barata. " + ("Si ya la tienes, mantén solo lo que estés dispuesto a ver caer mucho." if en_cartera else
@@ -1019,6 +1059,7 @@ def resumen_llano(nombre: str, m: dict, cal: dict, est: dict, rec: dict, d: dict
                  "MANTENER": "Si ya la tienes, quédate como estás: ni vender ni comprar más.",
                  "EVITAR": "¿Merece la pena? Ahora no: hay sitios mejores donde poner el dinero.",
                  "CONSIDERAR REDUCIR": "Si ya la tienes, piensa en ir soltando parte cuando rebote.",
+                 "SOLO COMO APUESTA PEQUEÑA": "¿Merece la pena? Solo con poco dinero: los números salen, pero el negocio no da confianza.",
                  "ESPERAR": "Sin datos para valorarla, mejor no meterse."}.get(rec["titulo"], "")
     if rec.get("entrada") and rec["titulo"] == "ESPERAR MEJOR PRECIO":
         que_hacer = que_hacer[:-1] + f" (por debajo de {_n(rec['entrada'], 0 if rec['entrada'] > 20 else 2)} {m.get('moneda', '')} empieza a interesar)."

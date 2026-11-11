@@ -246,6 +246,10 @@ def analisis(ticker: str, f: dict, h: pd.DataFrame, nombre: str, ref_close, prud
     st.caption("Análisis generado con reglas automáticas sobre datos públicos (no lo escribe una persona ni una IA). Abajo tienes cada paso "
                "con sus supuestos. " + a["aviso"])
 
+    from . import vistas3
+
+    vistas3.panel_plazos(h, ref_close, prudencia, rec)
+
     # --- 1. datos
     st.subheader("1 · Datos y fuentes")
     fuentes = [f"**Precio y cotización:** Yahoo Finance, {eventos.bolsa_de(ticker)} (con ~15 min de retraso)",

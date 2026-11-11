@@ -59,3 +59,30 @@ def test_buscador_en_la_base():
     assert datos._en_la_base("microsft")[0]["symbol"] == "MSFT"
     assert datos._en_la_base("accenture")[0]["symbol"] == "ACN"
     assert datos._en_la_base("airbus")[0]["symbol"] == "AIR.PA"
+
+
+def test_lectura_picks():
+    import pandas as pd
+    from radar import picks
+
+    f = {"n": 8, "n_bate": 8, "n_falla": 0, "bate_sube": 3, "bate_media": -0.01, "falla_sube": 0, "falla_media": None, "sube": 3,
+         "media": -0.01, "media_abs": 0.05, "peor": -0.09, "mejor": 0.08, "implicito": 0.08, "mes": 0.15, "pos52": 0.95}
+    l = picks.lectura(f, {"bpa_esperado": 2.0, "bpa_hace_un_anio": 1.0, "mio": True, "cap": 5e11})
+    assert "Batir no le basta" in l["si_bate"] and "no ha fallado" in l["si_falla"]
+    assert l["nivel"] == "alto" and any("vender con la noticia" in a for a in l["avisos"])
+    assert picks._numero("$1,234.5") == 1234.5 and picks._numero("($0.44)") == -0.44
+
+
+def test_entrada_nunca_por_encima_del_precio():
+    cal_mala, cal_buena = {"media": 0.75, "etiqueta": "Mediocre"}, {"media": 1.4, "etiqueta": "Buena"}
+    esc = {"metodo": "Múltiplos (PER)", "dividendo_periodo": 0.0, "escenarios": [
+        {"nombre": "🟢 Optimista", "centro": 300.0, "rent_total": 1.5}, {"nombre": "🔵 Base (más probable)", "centro": 170.0, "rent_total": 0.44},
+        {"nombre": "🔴 Pesimista", "centro": 95.0, "rent_total": -0.19}]}
+    m = {"precio": 118.0, "moneda": "USD"}
+    r = analisis.recomendacion(m, cal_mala, esc, {}, [], {"lista": []})
+    assert r["entrada"] is None and r["titulo"] == "SOLO COMO APUESTA PEQUEÑA"
+    r = analisis.recomendacion(m, cal_buena, esc, {}, [], {"lista": []})
+    assert r["titulo"] == "COMPRAR"
+    esc["escenarios"][1].update(centro=125.0, rent_total=0.06)
+    r = analisis.recomendacion(m, cal_buena, esc, {}, [], {"lista": []})
+    assert r["titulo"] == "ESPERAR MEJOR PRECIO" and r["entrada"] < 118.0

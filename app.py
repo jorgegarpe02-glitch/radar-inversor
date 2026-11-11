@@ -13,7 +13,7 @@ import pandas as pd
 import streamlit as st
 
 from radar import (actualizador, alertas, cache, cartera, config, conexiones, datos, diario, energia, escenarios, eventos, graficos,
-                   materias, mundo, noticias, noticias_ia, senales, suministro, vistas, vistas2)
+                   materias, mundo, noticias, noticias_ia, senales, suministro, vistas, vistas2, vistas3)
 from radar import materias as catalogo_materias  # «materias» se reutiliza más abajo como variable
 
 st.set_page_config(page_title="Radar Inversor", page_icon="📡", layout="wide")
@@ -95,7 +95,7 @@ def _alertas_fragmento():
 
 
 # ----------------------------------------------------------------------------- navegación
-AREAS = ["🌍 Inicio", "📈 Mercados", "🏢 Empresa", "🧺 Cartera", "🔔 Alertas", "📒 Diario", "📘 Guía"]
+AREAS = ["🌍 Inicio", "📌 Picks del día", "💡 Ideas", "📈 Mercados", "🏢 Empresa", "🧺 Cartera", "🔔 Alertas", "📒 Diario", "📘 Guía"]
 SUB_MERCADOS = ["🌡️ Hoy", "🖥️ Monitor", "🟩 Mapa de calor", "📊 Macro", "🧮 Buscador", "🔍 Oportunidades", "⛏️ Materias primas", "📅 Agenda",
                 "🛢️ Energía y buques"]
 SUB_EMPRESA = ["🧠 Análisis", "💼 Negocio", "🏢 Ficha", "🚦 Señales", "🎯 Escenarios", "📰 Noticias", "🕸️ Conexiones", "🔬 Profundizar",
@@ -105,7 +105,8 @@ FUNCIONES = {"AN": "🧠 Análisis", "DES": "🧠 Análisis", "NEG": "💼 Negoc
              "SEN": "🚦 Señales", "ESC": "🎯 Escenarios", "N": "📰 Noticias", "CN": "📰 Noticias", "CON": "🕸️ Conexiones",
              "SPLC": "🕸️ Conexiones", "COMPRA": "💶 Mi compra", "OWN": "🔬 Profundizar", "HDS": "🔬 Profundizar",
              "OPC": "🔬 Profundizar", "OMON": "🔬 Profundizar", "PRO": "🔬 Profundizar"}
-COMANDOS = {"MACRO": ("📈 Mercados", "📊 Macro"), "MONITOR": ("📈 Mercados", "🖥️ Monitor"), "BUSCADOR": ("📈 Mercados", "🧮 Buscador"),
+COMANDOS = {"PICKS": ("📌 Picks del día", None), "RESULTADOS": ("📌 Picks del día", None), "IDEAS": ("💡 Ideas", None), "TOP": ("💡 Ideas", None),
+            "MACRO": ("📈 Mercados", "📊 Macro"), "MONITOR": ("📈 Mercados", "🖥️ Monitor"), "BUSCADOR": ("📈 Mercados", "🧮 Buscador"),
             "CARTERA": ("🧺 Cartera", None), "HOY": ("📈 Mercados", "🌡️ Hoy"), "CALOR": ("📈 Mercados", "🟩 Mapa de calor"), "MAPA": ("🌍 Inicio", None),
             "OPORT": ("📈 Mercados", "🔍 Oportunidades"), "MATERIAS": ("📈 Mercados", "⛏️ Materias primas"),
             "AGENDA": ("📈 Mercados", "📅 Agenda"), "BUQUES": ("📈 Mercados", "🛢️ Energía y buques"), "ALERTAS": ("🔔 Alertas", None),
@@ -170,10 +171,10 @@ with st.sidebar:
         sub = st.radio("Mercados", SUB_MERCADOS, key="sub_mercados")
     elif area == "🏢 Empresa":
         sub = st.radio("Empresa", SUB_EMPRESA, key="sub_empresa")
-    st.text_input("Comando", key="comando", on_change=ejecutar_comando, placeholder="⌨️ Comando: NVDA AN · MACRO · ORO",
+    st.text_input("Comando", key="comando", on_change=ejecutar_comando, placeholder="⌨️ Comando: NVDA AN · PICKS · ORO",
                   label_visibility="collapsed",
                   help="Escribe y pulsa Intro. Empresa + función: AN análisis · NEG negocio · FA ficha · SEN señales · ESC escenarios · "
-                       "N noticias · CON conexiones · PRO accionistas y opciones. Solos: HOY, MONITOR, CALOR, MACRO, BUSCADOR, CARTERA, MAPA, "
+                       "N noticias · CON conexiones · PRO accionistas y opciones. Solos: PICKS, IDEAS, HOY, MONITOR, CALOR, MACRO, BUSCADOR, CARTERA, MAPA, "
                        "OPORT, MATERIAS, AGENDA, BUQUES, ALERTAS, DIARIO, GUIA, "
                        "o una materia prima (ORO, COBRE…).")
     st.divider()
@@ -634,6 +635,12 @@ elif seccion == "💼 Negocio":
 elif seccion == "🟩 Mapa de calor":
     vistas.pantalla_calor(abrir_empresa)
 
+elif seccion == "📌 Picks del día":
+    vistas3.pantalla_picks(abrir_empresa)
+
+elif seccion == "💡 Ideas":
+    vistas3.pantalla_ideas(abrir_empresa)
+
 elif seccion == "📊 Macro":
     vistas2.pantalla_macro()
 
@@ -1050,18 +1057,26 @@ elif seccion == "💶 Mi compra":
 
 # ----------------------------------------------------------------------------- SEÑALES
 elif seccion == "🚦 Señales":
-    st.caption("Señales para operaciones de 1 semana a 1 mes. Son reglas automáticas basadas en datos gratuitos: "
-               "te ayudan a decidir y a limitar pérdidas, pero no son una garantía ni asesoramiento financiero.")
+    st.caption("Señales para operaciones cortas (de 1 semana a 6 meses, tú eliges). Miran solo el precio y las noticias, no el valor del "
+               "negocio: por eso pueden decir «no entrar» en una empresa que 🧠 Análisis recomienda a más de un año. Son reglas automáticas, "
+               "no una garantía ni asesoramiento financiero.")
+    rec_largo = (st.session_state.get(f"analisis_{ticker}") or {}).get("an", {}).get("recomendacion")
+    vistas3.panel_plazos(h, ref_h["Close"] if (ref_h is not None and not ref_h.empty) else None, prudencia, rec_largo)
+    if rec_largo is None:
+        st.button("➕ Añadir el veredicto a largo plazo (abre 🧠 Análisis)", on_click=abrir_empresa, args=(ticker, "🧠 Análisis"))
     c1, c2, c3, c4 = st.columns(4)
     importe_op = c1.number_input("Importe por operación (€)", 10.0, 100_000.0, 100.0, 10.0, key="imp_op")
     comision_op = c2.number_input("Comisión por orden (€)", 0.0, 50.0, 1.0, 0.5, key="com_op",
                                   help="Lo que te cobra el bróker en CADA orden (compra y venta se cobran por separado).")
-    dias_op = c3.select_slider("Horizonte máximo", [5, 10, 15, 21], value=21,
-                               format_func=lambda d: {5: "1 semana", 10: "2 semanas", 15: "3 semanas", 21: "1 mes"}[d])
+    NOMBRE_DIAS = {5: "1 semana", 10: "2 semanas", 15: "3 semanas", 21: "1 mes", 42: "2 meses", 63: "3 meses", 126: "6 meses"}
+    dias_op = c3.select_slider("Horizonte de la operación", list(NOMBRE_DIAS), value=21, format_func=NOMBRE_DIAS.get,
+                               help="Cuánto tiempo piensas mantenerla como máximo. A más plazo, el stop y el objetivo se alejan en proporción.")
     perfiles = {"Normal · SL 2 ATR · TP 2:1": (2.0, 2.0), "Ajustado · SL 1,5 ATR · TP 2:1": (1.5, 2.0),
                 "Amplio · SL 3 ATR · TP 1,5:1": (3.0, 1.5)}
     perfil = c4.selectbox("Perfil de stop", list(perfiles), help="ATR = lo que se mueve la acción en un día normal.")
     k_sl, rr = perfiles[perfil]
+    if dias_op > 21:  # a más plazo, el precio se aleja más por puro ruido: el stop se abre con la raíz del tiempo
+        k_sl = k_sl * (dias_op / 21) ** 0.5
     imp_ccy = senales.impuesto_compra(ticker, f.get("marketCap"))
     coste_total = (2 * comision_op + importe_op * imp_ccy) / importe_op
     texto_coste = f"Coste de entrar y salir: {num(2 * comision_op + importe_op * imp_ccy)} € = {pct(coste_total, 1, False)} del importe"
@@ -1123,7 +1138,7 @@ elif seccion == "🚦 Señales":
             m[1].metric("Prob. de saltar el SL", pct(sim["prob_sl"], 0, False))
             m[2].metric(f"Si llega al TP ({num(importe_op, 0)} €)", f"{sim['eur_tp']:+.2f} €".replace(".", ","))
             m[3].metric("Si salta el SL", f"{sim['eur_sl']:+.2f} €".replace(".", ","))
-            dias_txt = {5: "1 semana", 10: "2 semanas", 15: "3 semanas", 21: "1 mes"}[dias_op]
+            dias_txt = NOMBRE_DIAS[dias_op]
             st.markdown(
                 f"**Cómo ejecutarlo en tu bróker:** compra por {num(importe_op, 0)} € (≈ {num((importe_op - comision_op) / precio, 4)} acciones, "
                 f"admite fracciones si tu bróker lo permite) → crea una **orden stop loss** de venta a **{num(sl)}** → crea una **orden límite** "

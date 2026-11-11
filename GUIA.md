@@ -27,6 +27,22 @@ son las oficiales del informe anual (hay que guardar una vez tu nombre y correo 
 
 **📰 Noticias filtradas.** Solo economía y mercados. Si quieres verlo todo, activa «Ver todo sin filtrar».
 
+**💡 Ideas** (menú principal). Elige un grupo (IBEX 35, Europa, EE. UU. o Nasdaq-100) y pulsa «Buscar ideas»: el programa pasa su
+análisis a todas y te enseña las diez que mejor salen para comprar a 6-12 meses, con el motivo, lo que puede salir mal y un botón
+para abrir el análisis completo. Tarda de 1 a 3 minutos la primera vez. Si hay menos de diez compras claras, completa la lista con
+buenas empresas a las que les falta bajar un poco, con su precio de entrada. Es una lista para empezar a mirar, no una orden de compra.
+
+**📌 Picks del día** (menú principal). Las empresas que presentan resultados en los próximos días. Para cada una: qué beneficio se
+espera, cuántas veces batió o falló las previsiones y qué hizo la acción al día siguiente en cada caso, cuánto movimiento descuentan
+las opciones y si llega subiendo o castigada. No predice la dirección: te da las frecuencias reales. «Interés alto» significa que
+puede moverse mucho o que la tienes en tus listas, no que haya que comprarla.
+
+**Veredicto por plazos.** 🚦 Señales y 🧠 Análisis responden a preguntas distintas, y por eso a veces parecen contradecirse:
+Señales mira si el precio acompaña *ahora* (días o semanas); Análisis mira si el negocio vale más de lo que cuesta (más de un año).
+El recuadro «Veredicto por plazos» los pone juntos, añade el medio plazo y te dice qué hacer cuando no coinciden
+(lo habitual: buena empresa que está cayendo → entrar por partes o esperar a que la señal corta mejore).
+En 🚦 Señales puedes elegir el horizonte de la operación, de 1 semana a 6 meses.
+
 **📊 Macro** (📈 Mercados). Tipos de interés, inflación, paro, prima de riesgo, divisas y termómetros del miedo (VIX, oro, bonos).
 Regla rápida: tipos subiendo perjudican a las acciones caras y a las empresas con deuda; curva invertida (el corto paga más que el
 largo) suele avisar de recesión con meses de adelanto.
