@@ -1,5 +1,13 @@
 # Novedades
 
+## Versión 2.1.3
+
+- Corregido un error al preparar la descarga en Excel del análisis con versiones recientes de pandas.
+
+## Versión 2.1.2
+
+- La pantalla de inicio carga más rápido: los datos de países se descargan a la vez y, si una fuente no responde, se pasa a la siguiente en segundos.
+
 ## Versión 2.1.1
 
 - Actualizaciones automáticas activadas.
