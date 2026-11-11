@@ -39,7 +39,7 @@ INDICADORES = {  # clave: (código FMI, código Banco Mundial, nombre, unidad)
 }
 
 
-def _get_json(url: str, params: dict | None = None, timeout: int = 40):
+def _get_json(url: str, params: dict | None = None, timeout: int = 12):
     r = requests.get(url, params=params, headers={**UA_WEB, "Accept": "application/json"}, timeout=timeout)
     r.raise_for_status()
     return r.json()
@@ -80,7 +80,25 @@ def _bm(indicador: str) -> pd.DataFrame:
 def economia(anio: int | None = None) -> tuple[pd.DataFrame, str]:
     """Tabla por país con crecimiento (año en curso y anterior), inflación, paro y deuda. Devuelve (tabla, fuente)."""
     anio = anio or date.today().year
+    # Las siete consultas (FMI y Banco Mundial) se lanzan a la vez: en serie, si una web va lenta, el mapa tardaba minutos
+    from concurrent.futures import ThreadPoolExecutor
+
+    def intento(funcion, *args):
+        try:
+            return funcion(*args)
+        except Exception:  # noqa: BLE001 - se vuelve a intentar (ya en caché si fue bien) más abajo
+            return None
+
+    with ThreadPoolExecutor(max_workers=8) as ex:
+        tareas = [ex.submit(intento, _fmi_paises), ex.submit(intento, _bm_paises)]
+        tareas += [ex.submit(intento, _fmi, cod) for cod, _, _, _ in INDICADORES.values()]
+        fmi_ok = all(t.result() is not None for t in [tareas[0]] + tareas[2:])
+    if not fmi_ok:  # el FMI no responde: se prepara el Banco Mundial, también en paralelo
+        with ThreadPoolExecutor(max_workers=4) as ex:
+            list(ex.map(lambda cod: intento(_bm, cod), [c for _, c, _, _ in INDICADORES.values()]))
     try:
+        if not fmi_ok:
+            raise RuntimeError("FMI sin respuesta")
         nombres = _fmi_paises()
         tabla = pd.DataFrame({"iso3": list(nombres), "pais_en": list(nombres.values())})
         try:

@@ -1,5 +1,13 @@
 # Novedades
 
+## Versión 2.1.5
+
+- Reúne los arreglos de las versiones 2.1.2 a 2.1.4 (inicio más rápido, descarga en Excel y buscador por nombre).
+
+## Versión 2.1.4
+
+- Buscador de empresas: ya se puede escribir el nombre (no solo el ticker), tolera erratas («microsft», «acenture») y elige la bolsa principal de cada empresa.
+
 ## Versión 2.1.3
 
 - Corregido un error al preparar la descarga en Excel del análisis con versiones recientes de pandas.

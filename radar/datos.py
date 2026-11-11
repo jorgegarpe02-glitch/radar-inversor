@@ -113,12 +113,14 @@ def _sin_tildes(t: str) -> str:
 def _puntuacion(r: dict) -> float:
     """Menor = mejor: bolsas principales primero, mercados secundarios y ETF apalancados al final."""
     s = r["symbol"].upper()
-    if r.get("codigo_bolsa") in ("PNK", "OQB", "OQX", "OTC", "OEM", "OGM") or "OTC" in r.get("mercado", "").upper():
+    if r.get("codigo_bolsa") in ("PNK", "OQB", "OQX", "OTC", "OEM", "OGM", "OID") or "OTC" in r.get("mercado", "").upper():
         return 4.0  # mercados extrabursátiles de EE. UU. (poco líquidos)
     if s.endswith(".MC") or ("." not in s and "-" not in s and r["tipo"] == "EQUITY"):
         p = 0.0
     elif s.endswith(_BOLSAS_PRINCIPALES):
         p = 1.0
+    elif s.endswith((".T", ".KS", ".HK", ".TW", ".SW", ".ST", ".CO", ".OL", ".HE", ".BR", ".LS", ".VI", ".AX", ".TO")):
+        p = 1.5  # bolsa de origen de empresas asiáticas, nórdicas, suizas…
     elif r["tipo"] == "INDEX":
         p = 0.5
     else:
@@ -128,19 +130,49 @@ def _puntuacion(r: dict) -> float:
     return p
 
 
-@con_cache(6 * 3600)
-def buscar_valores(texto: str) -> list[dict]:
-    """Busca empresas/ETF/índices por nombre o ticker. Ordena primero las bolsas principales."""
-    texto = (texto or "").strip()
-    if not texto:
+def _en_la_base(texto: str) -> list[dict]:
+    """Empresas de la base del programa cuyo nombre o alias encaja con lo escrito (tolera erratas)."""
+    import difflib
+
+    from . import conexiones
+
+    q = _sin_tildes(texto).strip()
+    if len(q) < 2:
         return []
-    r = requests.get(
-        "https://query2.finance.yahoo.com/v1/finance/search",
-        params={"q": texto, "quotesCount": 10, "newsCount": 0},
-        headers=UA_WEB,
-        timeout=10,
-    )
-    r.raise_for_status()
+    empresas, _ = conexiones.cargar_base()
+    exactas, empiezan, contienen, nombres = [], [], [], {}
+    for fila in empresas.itertuples():
+        if not fila.tickers:
+            continue
+        variantes = [_sin_tildes(x) for x in [fila.nombre, fila.id] + [a for a in fila.alias.split("|") if a]]
+        item = {"symbol": fila.tickers.split("|")[0], "nombre": fila.nombre, "mercado": fila.pais, "tipo": "EQUITY", "codigo_bolsa": ""}
+        for v in variantes:
+            nombres[v] = item
+        if q in variantes:
+            exactas.append(item)
+        elif any(v.startswith(q) or any(pal.startswith(q) for pal in v.split()) for v in variantes):
+            empiezan.append(item)
+        elif len(q) >= 4 and any(q in v for v in variantes):
+            contienen.append(item)
+    salida = exactas + empiezan + contienen
+    if not salida and len(q) >= 4:  # erratas: «microsft», «acenture», «inditez»
+        salida = [nombres[n] for n in difflib.get_close_matches(q, list(nombres), n=3, cutoff=0.78)]
+    return salida[:4]
+
+
+@con_cache(6 * 3600)
+def _buscar_yahoo(texto: str) -> list[dict]:
+    r = None
+    for servidor in ("query2", "query1"):  # si uno de los dos servidores de Yahoo falla, se prueba el otro
+        try:
+            r = requests.get(f"https://{servidor}.finance.yahoo.com/v1/finance/search",
+                             params={"q": texto, "quotesCount": 10, "newsCount": 0}, headers=UA_WEB, timeout=8)
+            r.raise_for_status()
+            break
+        except Exception:  # noqa: BLE001
+            r = None
+    if r is None:
+        raise ConnectionError("El buscador de Yahoo no responde")
     salida = []
     for q in r.json().get("quotes", []):
         if q.get("quoteType") not in ("EQUITY", "ETF", "INDEX"):
@@ -148,12 +180,39 @@ def buscar_valores(texto: str) -> list[dict]:
         salida.append({"symbol": q["symbol"], "nombre": q.get("longname") or q.get("shortname") or "",
                        "mercado": q.get("exchDisp") or q.get("exchange") or "", "tipo": q.get("quoteType", ""),
                        "codigo_bolsa": q.get("exchange", "")})
-    salida = sorted(salida, key=_puntuacion)  # orden estable: dentro del mismo nivel respeta la relevancia de Yahoo
+    return sorted(salida, key=_puntuacion)  # orden estable: dentro del mismo nivel respeta la relevancia de Yahoo
+
+
+def buscar_valores(texto: str) -> list[dict]:
+    """Busca empresas/ETF/índices por nombre o ticker.
+
+    Orden: 1) si lo escrito es exactamente un ticker, ese; 2) empresas de la base del programa (con su bolsa principal y
+    tolerando erratas); 3) el buscador de Yahoo, con las bolsas principales delante.
+    """
+    texto = (texto or "").strip()
+    if not texto:
+        return []
+    try:
+        yahoo = _buscar_yahoo(texto)
+    except Exception:  # noqa: BLE001 - sin conexión con Yahoo aún se puede encontrar en la base
+        yahoo = []
+    locales = _en_la_base(texto)
+    if not yahoo and locales:  # errata: se vuelve a preguntar a Yahoo con el nombre corregido
+        try:
+            yahoo = _buscar_yahoo(locales[0]["nombre"])
+        except Exception:  # noqa: BLE001
+            yahoo = []
+    exacto = [x for x in yahoo if x["symbol"].upper() == texto.upper()]
     alias = ALIAS_ES.get(_sin_tildes(texto))
-    if alias:
-        salida = [x for x in salida if x["symbol"] != alias]
-        salida.insert(0, {"symbol": alias, "nombre": texto.strip().title() + " (Bolsa de Madrid)", "mercado": "Madrid",
-                          "tipo": "EQUITY"})
+    primero = []
+    if alias:  # nombres españoles de toda la vida: «bbva» es BBVA.MC, no el ADR de Nueva York
+        primero = [{"symbol": alias, "nombre": texto.strip().title() + " (Bolsa de Madrid)", "mercado": "Madrid", "tipo": "EQUITY",
+                    "codigo_bolsa": ""}]
+    salida, vistos = [], set()
+    for x in primero + exacto + locales + yahoo:
+        if x["symbol"].upper() not in vistos:
+            vistos.add(x["symbol"].upper())
+            salida.append(x)
     return salida[:8]
 
 

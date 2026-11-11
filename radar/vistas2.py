@@ -814,7 +814,7 @@ def excel_analisis(a: dict, m: dict) -> bytes | None:
     salida = io.BytesIO()
     with pd.ExcelWriter(salida, engine="openpyxl") as w:
         pd.DataFrame([{"Métrica": t["nombre"], "Valor": t["valor"], "Su historia": t["historia"], "Competidores": t["competidores"],
-                       "Sector": t["sector"], "Fuente": t["fuente"]} for t in a["metricas"]]).to_excel(w, "Métricas", index=False)
+                       "Sector": t["sector"], "Fuente": t["fuente"]} for t in a["metricas"]]).to_excel(w, sheet_name="Métricas", index=False)
         anual = m.get("anual")
         if anual is not None and not anual.empty:
             cols = {"ingresos": "Ingresos", "bruto": "Beneficio bruto", "operativo": "Beneficio operativo", "ebitda": "EBITDA", "neto": "Beneficio neto",
@@ -822,15 +822,15 @@ def excel_analisis(a: dict, m: dict) -> bytes | None:
                     "roic": "ROIC", "roe": "ROE", "deuda_neta": "Deuda neta", "per": "PER al cierre", "ev_ebitda": "EV/EBITDA al cierre"}
             t = anual[[c for c in cols if c in anual]].rename(columns=cols)
             t.index = [f"{x:%Y-%m}" for x in t.index]
-            t.T.to_excel(w, "Histórico anual")
+            t.T.to_excel(w, sheet_name="Histórico anual")
         pd.DataFrame([{"Escenario": e["nombre"], "Precio bajo": e["bajo"], "Precio alto": e["alto"], "Rentabilidad total": e["rent_total"],
-                       "Condiciones": e["condiciones"], "Método": e["metodo"]} for e in a["escenarios"].get("escenarios", [])]).to_excel(w, "Escenarios", index=False)
+                       "Condiciones": e["condiciones"], "Método": e["metodo"]} for e in a["escenarios"].get("escenarios", [])]).to_excel(w, sheet_name="Escenarios", index=False)
         pd.DataFrame([{"Severidad": "Alta" if r["severidad"] == 2 else "Media", "Riesgo": r["titulo"], "Detalle": r["texto"]}
-                      for r in a["riesgos"]["lista"]]).to_excel(w, "Riesgos", index=False)
-        pd.DataFrame([{"Criterio": c["criterio"], "Nota (0-2)": c["nota"], "Detalle": c["texto"]} for c in a["calidad"]["criterios"]]).to_excel(w, "Calidad", index=False)
+                      for r in a["riesgos"]["lista"]]).to_excel(w, sheet_name="Riesgos", index=False)
+        pd.DataFrame([{"Criterio": c["criterio"], "Nota (0-2)": c["nota"], "Detalle": c["texto"]} for c in a["calidad"]["criterios"]]).to_excel(w, sheet_name="Calidad", index=False)
         pd.DataFrame({"": ["Recomendación", "Motivo", "Veredicto", "Resumen", "Aviso"],
                       "Texto": [a["recomendacion"]["etiqueta"] + " " + a["recomendacion"]["titulo"], a["recomendacion"]["texto"].replace("**", ""),
-                                a["veredicto"].replace("**", ""), a["resumen"], a["aviso"]]}).to_excel(w, "Conclusión", index=False)
+                                a["veredicto"].replace("**", ""), a["resumen"], a["aviso"]]}).to_excel(w, sheet_name="Conclusión", index=False)
     return salida.getvalue()
 
 
@@ -838,7 +838,10 @@ def botones_exportar(a: dict, m: dict, moneda: str, ticker: str) -> None:
     c1, c2, c3 = st.columns([1, 1, 2])
     c1.download_button("⬇️ Informe (HTML, imprimible a PDF)", informe_html(a, m, moneda).encode("utf-8"), f"analisis_{ticker}.html", "text/html",
                        width="stretch", key=f"exp_html_{ticker}")
-    xls = excel_analisis(a, m)
+    try:
+        xls = excel_analisis(a, m)
+    except Exception:  # noqa: BLE001 - el Excel es un extra: nunca debe romper la pantalla del análisis
+        xls = None
     if xls:
         c2.download_button("⬇️ Datos (Excel)", xls, f"analisis_{ticker}.xlsx", width="stretch", key=f"exp_xls_{ticker}")
     c3.caption("Abre el HTML y pulsa Ctrl+P → «Guardar como PDF» para tenerlo en PDF.")

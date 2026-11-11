@@ -119,7 +119,9 @@ def abrir_empresa(simbolo: str, destino: str = "🧠 Análisis") -> None:
     if not s:
         return
     elegido = s.upper()
-    if not re.fullmatch(r"[\^A-Za-z0-9.\-=]{1,12}", s) or " " in s:
+    # Solo se da por ticker lo que lo parece sin duda (lleva punto, ^, = o guion: SAN.MC, ^IBEX, GC=F, BTC-EUR).
+    # Todo lo demás («accenture», «NVDA», «banco santander») pasa por el buscador, que devuelve primero el ticker exacto si existe.
+    if not re.fullmatch(r"[\^A-Za-z0-9]*[.\^=\-][A-Za-z0-9.\-=]*", s):
         try:
             candidatos = datos.buscar(s)
             if candidatos:
@@ -184,7 +186,7 @@ with st.sidebar:
             st.button(f"{r['symbol']} · {r['nombre'][:30]}", key=f"bb_{r['symbol']}", on_click=abrir_empresa,
                       args=(r["symbol"],), width="stretch")
         if not resultados_b:
-            st.caption("Sin resultados. Prueba con el ticker (p. ej. ITX.MC).")
+            st.caption("Sin resultados. Revisa cómo está escrito o prueba con el ticker (p. ej. ITX.MC).")
     ticker = st.session_state.get("ticker") or ""
     if ticker:
         st.caption(f"Empresa abierta: **{ticker}**")

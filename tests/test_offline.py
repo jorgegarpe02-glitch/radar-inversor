@@ -51,3 +51,11 @@ def test_max_dolor_y_exportar():
     calls = pd.DataFrame({"strike": [90, 100, 110], "openInterest": [10, 50, 10]})
     puts = pd.DataFrame({"strike": [90, 100, 110], "openInterest": [10, 50, 10]})
     assert vistas2._max_dolor(calls, puts) == 100
+
+
+def test_buscador_en_la_base():
+    from radar import datos
+
+    assert datos._en_la_base("microsft")[0]["symbol"] == "MSFT"
+    assert datos._en_la_base("accenture")[0]["symbol"] == "ACN"
+    assert datos._en_la_base("airbus")[0]["symbol"] == "AIR.PA"
