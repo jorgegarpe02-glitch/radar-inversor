@@ -1,5 +1,10 @@
 # Novedades
 
+## Versión 2.1.1
+
+- Actualizaciones automáticas activadas.
+- El aspecto oscuro ya no depende de la carpeta `.streamlit`.
+
 ## Versión 2.1 (noviembre de 2026)
 
 - **📊 Macro**: curva de tipos de EE. UU., tipos oficiales, inflación, paro, prima de riesgo, divisas y termómetros del miedo.

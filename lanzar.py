@@ -29,4 +29,8 @@ if __name__ == "__main__":
     if "--sin-actualizar" not in sys.argv:
         actualizar()
     raiz = Path(__file__).resolve().parent
-    subprocess.run([sys.executable, "-m", "streamlit", "run", str(raiz / "app.py")], cwd=raiz)
+    # El aspecto y los ajustes van aquí (y no solo en .streamlit/config.toml) para que funcionen aunque esa carpeta falte
+    ajustes = ["--theme.base", "dark", "--theme.primaryColor", "#fab219", "--theme.backgroundColor", "#0d0d0d",
+               "--theme.secondaryBackgroundColor", "#1a1a19", "--theme.textColor", "#f0efec",
+               "--browser.gatherUsageStats", "false", "--server.fileWatcherType", "none"]
+    subprocess.run([sys.executable, "-m", "streamlit", "run", str(raiz / "app.py"), *ajustes], cwd=raiz)
