@@ -317,6 +317,32 @@ Al elegir una moneda sale su análisis:
 Importante: una criptomoneda no tiene ventas ni beneficios, así que nadie puede calcular cuánto «debería» valer. Las monedas
 estables (valen siempre 1 dólar) aparecen marcadas como «no es una inversión».
 
+## 3 septies. Plan mensual (🧺 Cartera → 📅 Plan mensual)
+
+Sirve para revisar tu cartera y lo que compras cada mes.
+
+1. Elige tu **perfil de riesgo**: bajo (no quieres sustos), medio o alto (aceptas caídas fuertes a cambio de más recorrido).
+   Cambia cómo se juzga la cartera: lo que para un perfil bajo es demasiado especulativo, para uno alto puede estar bien.
+2. En la tabla escribe cada activo (nombre o ticker), los **euros al mes** y, si ya tienes algo, cuánto en **«Ya tengo (€)»**.
+   Para una compra nueva, deja «Ya tengo» vacío o en 0. Valen acciones, fondos y ETF, criptomonedas y materias primas. De 2 a 20.
+3. Si un fondo no aparece en Yahoo (pasa con los indexados de MyInvestor), ponle el nombre que quieras y elige su tipo en la última columna.
+4. Pulsa **Analizar cartera**.
+
+Qué te devuelve:
+
+- **Cómo repartiría los mismos euros al mes.** No cambia el total: mueve dinero de lo que conviene pausar a lo que conviene comprar.
+  «Pausar» significa dejar de aportar, no vender. Lo que ya pesa mucho en tu cartera recibe menos. Si nada está para comprar,
+  te dice cuánto queda sin asignar.
+- **Por dónde flaquea.** 🔴 importante, 🟡 a vigilar, ℹ️ para que lo sepas.
+- **Para qué sirve cada pieza**, **qué le falta** y **qué le sobra**.
+- **🧪 ¿Y si…?** Escribe un activo para añadir, o elige alguno para quitar, y pulsa «Probar»: ves cómo cambiarían la nota, la parte
+  especulativa y los puntos débiles. No toca tu plan guardado.
+- **Aparte: si quisieras añadir un fondo indexado.** No cuenta para la nota. Dice qué tipo de fondo complementaría lo tuyo y cuáles
+  te duplicarían lo que ya tienes.
+- **Si mantienes este plan**: lo que podría valer en 5, 10 y 20 años, en tres escenarios. No es una predicción.
+
+Revísalo cada dos o tres meses. Las reglas no conocen tus impuestos ni tu situación: úsalo como orientación.
+
 ## 3 ter. IA para leer las noticias
 
 Por defecto, el tono de las noticias se calcula con palabras clave. En la barra lateral puedes pulsar **Instalar IA de

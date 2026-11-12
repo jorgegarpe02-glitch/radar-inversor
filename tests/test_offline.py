@@ -113,3 +113,34 @@ def test_empresa_sin_beneficios_se_valora_por_ventas():
          "prev_crec_ingresos_sig": 0.40, "moneda": "USD"}
     esc = analisis.escenarios_precio(m, {"etiqueta": "Mediocre", "puntos": 5}, None, None)
     assert esc.get("tipo") == "ventas" and len(esc["escenarios"]) == 3
+
+
+def test_reparto_del_plan():
+    from radar import plan
+
+    def activo(nombre, euros, rol, accion, nota, clase="accion", tengo=0):
+        return {"nombre": nombre, "escrito": nombre, "ticker": nombre, "clase": clase, "rol": rol, "accion": accion, "nota": nota,
+                "euros": euros, "tengo": tengo, "motivo": "motivo de prueba.", "detalle": "", "sector": "Tecnología", "divisa": "USD"}
+    act = [activo("Fondo", 200, "base", "seguir", 85, "fondo"), activo("Buena", 100, "estable", "seguir", 80),
+           activo("Cara", 50, "valor", "pausar", 60), activo("Cohete", 100, "explosivo", "poco", 40), activo("Rara", 10, "desconocido", "seguir_sin_subir", 30)]
+    rep, sin = plan.reparto(act)
+    por = {r["nombre"]: r for r in rep}
+    assert abs(sum(r["sugerido"] for r in rep) + sin - 460) < 1
+    assert por["Cara"]["sugerido"] == 0 and por["Fondo"]["sugerido"] >= 200 and por["Cohete"]["sugerido"] < 100 and por["Rara"]["sugerido"] == 10
+    solo, resto = plan.reparto([activo("Cara", 100, "valor", "pausar", 60), activo("Cohete", 100, "explosivo", "poco", 40)])
+    assert resto > 0 and all(r["sugerido"] <= r["euros"] for r in solo)
+    assert plan.flaquezas(act) and len(plan.proyeccion(act)) == 3
+    # el perfil de riesgo cambia el juicio: lo mismo es demasiado especulativo para un perfil bajo y aceptable para uno alto
+    mixta = [activo("Buena", 100, "estable", "seguir", 80), activo("Otra", 100, "dividendos", "seguir", 70), activo("Cohete", 60, "explosivo", "poco", 40)]
+    titulos = lambda perfil: " ".join(f["titulo"] for f in plan.flaquezas(mixta, perfil))  # noqa: E731
+    assert "especulativo" in titulos("Bajo") and "especulativo" not in titulos("Alto")
+    # no tener fondo indexado ya no es un punto débil; el fondo va en un apartado aparte
+    assert "base diversificada" not in titulos("Medio") and plan.fondo_complementario(mixta)["encajan"]
+    # lo que ya tienes cuenta: una posición enorme recibe menos aportación aunque sea buena
+    grande = [activo("Enorme", 100, "estable", "seguir", 80, tengo=20000), activo("Nueva", 100, "estable", "seguir", 80), activo("Tercera", 100, "valor", "seguir", 70),
+              activo("Cuarta", 100, "dividendos", "seguir", 70)]
+    r2 = {r["nombre"]: r for r in plan.reparto(grande)[0]}
+    assert r2["Enorme"]["sugerido"] < 100 < r2["Nueva"]["sugerido"]
+    import pandas as pd
+    limpio = plan.limpiar(pd.DataFrame({"activo": ["A", "B", "", "C"], "euros": [10, None, 5, 0], "tengo": [None, 300, 1, 0], "tipo": ["", "", "", ""]}))
+    assert list(limpio["activo"]) == ["A", "B"] and limpio["tengo"].tolist() == [0, 300]

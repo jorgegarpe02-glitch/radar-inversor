@@ -1,5 +1,29 @@
 # Novedades
 
+## Versión 2.6 (noviembre de 2026)
+
+Mejoras en 🧺 Cartera → 📅 Plan mensual:
+
+- **Perfil de riesgo** (bajo, medio, alto): cambia cómo se juzga la cartera y qué se recomienda. Con perfil bajo se premian dividendos
+  y negocios maduros; con perfil alto se admite mucho más crecimiento rápido, tecnología y apuestas.
+- **Lo que ya tienes**: nueva columna «Ya tengo (€)». Si un activo ya pesa mucho en tu cartera, se le sugiere menos aportación
+  aunque sea bueno. Déjala vacía o en 0 para compras nuevas.
+- **🧪 ¿Y si…?**: prueba a añadir o quitar un activo y mira cómo cambia el análisis, sin tocar tu plan guardado.
+- **Qué le sobra**, además de qué le falta.
+- **El fondo indexado va aparte**: la nota juzga tus activos tal como son. Al final, un apartado independiente dice qué tipo de fondo
+  encajaría con lo que tienes, cuáles te aportarían poco y qué debería tener.
+
+## Versión 2.5 (noviembre de 2026)
+
+- **📅 Plan mensual** (dentro de 🧺 Cartera; comando `PLAN`): escribes lo que aportas cada mes a cada activo (de 2 a 20: acciones,
+  fondos y ETF, criptomonedas, materias primas) y analiza el conjunto:
+  - para qué sirve cada pieza (dividendos de cara al futuro, crecimiento estable, crecimiento explosivo especulativo, refugio…);
+  - qué hacer con cada una (seguir, seguir sin aumentar, solo con poco, pausar sin vender, reducir);
+  - cómo repartiría los mismos euros, con el porqué de cada cambio;
+  - por dónde flaquea (demasiado especulativo, sin base diversificada, un sector que pesa demasiado, compras duplicadas con tus fondos…);
+  - qué le falta, con candidatas que hoy pasan el análisis, y cuánto podría valer si lo mantienes 5, 10 y 20 años.
+- Los fondos y ETF se miran por dentro: qué empresas llevan, qué sectores y cuánto cobran.
+
 ## Versión 2.4 (noviembre de 2026)
 
 - **🪙 Cripto** (menú principal): precios de las 100 mayores criptomonedas en dólares y euros, ánimo del mercado (miedo y codicia),

@@ -108,7 +108,7 @@ FUNCIONES = {"AN": "🧠 Análisis", "DES": "🧠 Análisis", "NEG": "💼 Negoc
 COMANDOS = {"CRIPTO": ("🪙 Cripto", None), "CRYPTO": ("🪙 Cripto", None), "BTC": ("🪙 Cripto", None), "BITCOIN": ("🪙 Cripto", None),
             "PICKS": ("📌 Picks del día", None), "RESULTADOS": ("📌 Picks del día", None), "IDEAS": ("💡 Ideas", None), "TOP": ("💡 Ideas", None),
             "MACRO": ("📈 Mercados", "📊 Macro"), "MONITOR": ("📈 Mercados", "🖥️ Monitor"), "BUSCADOR": ("📈 Mercados", "🧮 Buscador"),
-            "CARTERA": ("🧺 Cartera", None), "HOY": ("📈 Mercados", "🌡️ Hoy"), "CALOR": ("📈 Mercados", "🟩 Mapa de calor"), "MAPA": ("🌍 Inicio", None),
+            "CARTERA": ("🧺 Cartera", None), "PLAN": ("🧺 Cartera", None), "HOY": ("📈 Mercados", "🌡️ Hoy"), "CALOR": ("📈 Mercados", "🟩 Mapa de calor"), "MAPA": ("🌍 Inicio", None),
             "OPORT": ("📈 Mercados", "🔍 Oportunidades"), "MATERIAS": ("📈 Mercados", "⛏️ Materias primas"),
             "AGENDA": ("📈 Mercados", "📅 Agenda"), "BUQUES": ("📈 Mercados", "🛢️ Energía y buques"), "ALERTAS": ("🔔 Alertas", None),
             "DIARIO": ("📒 Diario", None), "GUIA": ("📘 Guía", None), "AYUDA": ("📘 Guía", None)}
@@ -655,7 +655,11 @@ elif seccion == "🧮 Buscador":
     vistas2.pantalla_buscador(abrir_empresa)
 
 elif seccion == "🧺 Cartera":
-    vistas2.pantalla_cartera(abrir_empresa)
+    pes_plan, pes_cartera = st.tabs(["📅 Plan mensual", "🧺 Lo que ya tengo"])
+    with pes_plan:
+        vistas4.pantalla_plan(abrir_empresa)
+    with pes_cartera:
+        vistas2.pantalla_cartera(abrir_empresa)
 
 elif seccion == "🔬 Profundizar":
     vistas2.pantalla_profundizar(ticker, f, precio)
