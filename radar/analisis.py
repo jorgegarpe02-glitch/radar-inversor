@@ -485,8 +485,8 @@ def senales_trampa(m: dict, cal: dict) -> list[str]:
         duras.append(f"la deuda neta es {_n(m['deuda_neta_ebitda'])} veces el EBITDA")
     if _ok(m.get("payout")) and m["payout"] > 1.0 and _ok(m.get("div_yield")) and m["div_yield"] > 0.04:
         duras.append("reparte en dividendos más de lo que gana")
-    if _ok(m.get("neto")) and m["neto"] < 0:
-        duras.append("está en pérdidas")
+    if _ok(m.get("neto")) and m["neto"] < 0 and not (_ok(m.get("crec_ingresos_3a")) and m["crec_ingresos_3a"] >= 0.15):
+        duras.append("está en pérdidas")  # si pierde dinero pero las ventas crecen deprisa es una empresa en fase de inversión, no una trampa
     todas = duras + blandas
     barata = _ok(m.get("per")) and m["per"] < 9
     if cal.get("ciclo") == "alto":
@@ -577,10 +577,11 @@ def escenarios_precio(m: dict, cal: dict, sector: str | None, estadistico: dict 
         return {"nombre": nombre, "centro": centro, "bajo": lo, "alto": hi, "condiciones": condiciones, "metodo": metodo,
                 "rent_precio": centro / precio - 1, "rent_total": centro / precio - 1 + div_total}
 
-    if _ok(per) and per > 0 and _ok(precio) and per < 120:
+    if _ok(per) and 0 < per <= 60 and _ok(precio):
+        salida["tipo"] = "per"
         bpa_hoy = precio / per  # beneficio por acción en la unidad en que cotiza
         if _ok(per_fwd) and per_fwd > 0:
-            g = per / per_fwd - 1
+            g = min(per / per_fwd - 1, 1.5)  # más que eso no es crecimiento: es que el beneficio actual no es representativo
             origen_g = "previsión de los analistas para el próximo ejercicio"
         elif _ok(m.get("crec_bpa_3a")):
             g = max(min(m["crec_bpa_3a"], 0.15), -0.10) * meses / 12
@@ -608,7 +609,8 @@ def escenarios_precio(m: dict, cal: dict, sector: str | None, estadistico: dict 
         m_alc = min(max(per, ancla_lim) * 1.10, 55)
         m_baj = max(min(per, ancla_lim) * 0.72, 4)
         bpa_base = bpa_hoy * (1 + g_prud)
-        bpa_alc = bpa_hoy * (1 + max(g, g_prud) * (1.05 if g > 0 else 0.5))
+        g_alc = g_prud + (g - g_prud) * 0.5 if g > g_prud else g  # ni el optimista da por bueno todo un crecimiento extremo
+        bpa_alc = bpa_hoy * (1 + g_alc * (1.05 if g_alc > 0 else 0.5))
         bpa_baj = bpa_hoy * (1 + (0.25 * g_prud if g_prud > 0.05 else g_prud - 0.12))
         salida["escenarios"] = [
             paquete("🟢 Optimista", bpa_alc * m_alc,
@@ -635,7 +637,8 @@ def escenarios_precio(m: dict, cal: dict, sector: str | None, estadistico: dict 
             f"Dividendo cobrado en el periodo: {_pct(div_total, 1)}." if div_total > 0.002 else "No se cuenta dividendo (no paga o es simbólico).",
             "Cada precio se da como rango de ±6 % alrededor del cálculo: más precisión sería inventada.",
         ]
-    elif _ok(per_fwd) and 0 < per_fwd < 80 and _ok(precio):
+    elif _ok(per_fwd) and 4 <= per_fwd <= 40 and _ok(precio):
+        salida["tipo"] = "previsiones"
         # Hoy no gana dinero (o casi), pero los analistas esperan beneficios: se valora con ellos, sabiendo que es mucho más incierto
         bpa_f = precio / per_fwd
         m_ref = ref[0] if ref else 15
@@ -655,7 +658,39 @@ def escenarios_precio(m: dict, cal: dict, sector: str | None, estadistico: dict 
             f"Múltiplo de referencia: PER orientativo del sector ({m_ref}x).",
             "Cada precio se da como rango de ±6 % alrededor del cálculo.",
         ]
+    elif _ok(m.get("p_ventas")) and m["p_ventas"] > 0 and _ok(precio):
+        # Empresa que aún no gana dinero, o gana tan poco frente a lo que cuesta que el PER no dice nada (Rocket Lab, Palantir…):
+        # se valora por ventas. Es mucho menos fiable que valorar por beneficios, y así se dice.
+        salida["tipo"] = "ventas"
+        ps = m["p_ventas"]
+        g = m.get("prev_crec_ingresos_sig") if _ok(m.get("prev_crec_ingresos_sig")) else m.get("crec_ingresos_3a")
+        origen_g = "previsión de analistas" if _ok(m.get("prev_crec_ingresos_sig")) else "ritmo de los últimos 3 años"
+        g = max(min(g if _ok(g) else 0.0, 0.60), -0.20)
+        g_prud = g if g <= 0.25 else 0.25 + (g - 0.25) * 0.5
+        anios = meses / 12
+        # Cuanto más caro se paga cada euro de ventas, más se encoge ese múltiplo cuando el crecimiento se normaliza
+        c_base, c_baj = (0.75, 0.45) if ps > 20 else (0.85, 0.55) if ps > 8 else (0.95, 0.65)
+        f_alc, f_base, f_baj = (1 + g) ** anios * 1.05, (1 + g_prud) ** anios * c_base, (1 + g_prud * 0.5) ** anios * c_baj
+        salida["escenarios"] = [
+            paquete("🟢 Optimista", precio * f_alc, f"Las ventas crecen un {_pct(g, 0)} al año como se espera y el mercado sigue pagando "
+                    f"{_n(ps * 1.05)} veces ventas.", "Ventas previstas × múltiplo actual"),
+            paquete("🔵 Base (más probable)", precio * f_base, f"Las ventas crecen un {_pct(g_prud, 0)} al año y el múltiplo baja de {_n(ps)} a "
+                    f"{_n(ps * c_base)} veces ventas, como suele pasar cuando el crecimiento se normaliza.", "Ventas con recorte × múltiplo más bajo"),
+            paquete("🔴 Pesimista", precio * f_baj, f"El crecimiento se queda en la mitad ({_pct(g_prud * 0.5, 0)}) y el mercado deja de pagar prima: "
+                    f"{_n(ps * c_baj)} veces ventas.", "Crecimiento a medias × múltiplo deprimido"),
+        ]
+        salida["metodo"] = "Múltiplo de ventas (precio ÷ ventas): no hay beneficios representativos"
+        salida["supuestos"] = [
+            ("La empresa está en pérdidas" if not _ok(m.get("neto")) or m["neto"] <= 0 else "Gana muy poco frente a lo que cuesta")
+            + ", así que su PER no sirve. Se valora por lo que vende, que dice mucho menos que lo que gana: toma estos rangos como orientación amplia.",
+            f"Hoy cotiza a {_n(ps)} veces sus ventas anuales. Crecimiento de ventas: {_pct(g, 0, True)} según {origen_g} (tope del 60 %)"
+            + (f"; en el escenario base uso {_pct(g_prud, 0, True)}." if g > 0.25 else "."),
+            "El múltiplo de ventas se reduce en los escenarios base y pesimista: las empresas que crecen deprisa pierden prima cuando el ritmo baja.",
+            "Cada precio se da como rango de ±6 % alrededor del cálculo.",
+        ]
+        salida["ventas"] = {"ps": ps, "g": g}
     elif estadistico and all(_ok(estadistico.get(k)) for k in ("p10", "p50", "p90")):
+        salida["tipo"] = "estadistico"
         salida["escenarios"] = [
             paquete("🟢 Optimista", estadistico["p90"], "Solo 1 de cada 10 trayectorias históricas acaba por encima.", "Percentil 90 de la simulación"),
             paquete("🔵 Base (más probable)", estadistico["p50"], "Punto medio de las trayectorias simuladas.", "Mediana de la simulación"),
@@ -871,7 +906,7 @@ def recomendacion(m: dict, cal: dict, esc: dict, tec: dict, trampa: list[str], r
     base = next((e for e in esc.get("escenarios", []) if e["nombre"].startswith("🔵")), None)
     baj = next((e for e in esc.get("escenarios", []) if e["nombre"].startswith("🔴")), None)
     alc = next((e for e in esc.get("escenarios", []) if e["nombre"].startswith("🟢")), None)
-    por_valoracion = "Múltiplos" in esc.get("metodo", "")
+    por_valoracion = esc.get("tipo") in ("per", "previsiones") or (esc.get("tipo") is None and "Múltiplos" in esc.get("metodo", ""))
     graves = sum(1 for x in rie["lista"] if x["severidad"] == 2)
     if base is None:
         return {"etiqueta": "🟡 MANTENER", "color": "amarillo", "titulo": "MANTENER" if en_cartera else "ESPERAR",
@@ -888,6 +923,8 @@ def recomendacion(m: dict, cal: dict, esc: dict, tec: dict, trampa: list[str], r
         juicio = "caro"
     div = esc.get("dividendo_periodo", 0)
     solo_previsiones = "previsto por analistas" in esc.get("metodo", "")
+    if esc.get("tipo") == "ventas":
+        return _recomendacion_ventas(m, cal, esc, tec, rie, en_cartera, rb, rp, alc)
 
     def cumple_precio(p_):
         """¿A ese precio de compra salen las cuentas? (rentabilidad exigida, pérdida acotada y proporción razonable entre ambas)"""
@@ -968,9 +1005,47 @@ def recomendacion(m: dict, cal: dict, esc: dict, tec: dict, trampa: list[str], r
                      "barata. " + ("Si ya la tienes, mantén solo lo que estés dispuesto a ver caer mucho." if en_cartera else
                                   "Sin margen de seguridad medible, lo prudente es esperar o limitarlo a una apuesta pequeña."))
             entrada = None
+    if juicio == "atractivo" and not comprar:
+        juicio = "barato solo sobre el papel"  # el precio da margen pero algo impide recomendarla: que no parezca una contradicción
     return {"etiqueta": etiqueta, "color": color, "titulo": titulo, "texto": texto, "entrada": None if (comprar or not por_valoracion) else entrada,
             "precio_juicio": juicio, "rent_base": rb, "rent_pesimista": rp, "rent_optimista": alc["rent_total"] if alc else None,
             "exigido": exigido}
+
+
+def _recomendacion_ventas(m, cal, esc, tec, rie, en_cartera, rb, rp, alc) -> dict:
+    """Empresas que se valoran por ventas (sin beneficios representativos): nunca es una compra «normal»."""
+    v = esc.get("ventas", {})
+    g, ps = v.get("g", 0.0), v.get("ps", 0.0)
+    fcf, caja = m.get("fcf"), None
+    an_ = m.get("anual")
+    if an_ is not None and len(an_) and "caja" in an_ and len(an_["caja"].dropna()):
+        caja = float(an_["caja"].dropna().iloc[-1])
+    anios_caja = (caja / abs(fcf)) if (_ok(fcf) and fcf < 0 and _ok(caja)) else None
+    quema = anios_caja is not None and anios_caja < 2
+    gana = _ok(m.get("neto")) and m["neto"] > 0
+    situacion = (f"Gana dinero, pero tan poco frente a su precio que hay que valorarla por ventas: cotiza a {_n(ps)} veces lo que vende"
+                 if gana else f"Todavía no gana dinero y cotiza a {_n(ps)} veces sus ventas")
+    situacion += f", que crecen un {_pct(g, 0)} al año. "
+    if _ok(fcf) and fcf < 0 and anios_caja is not None:
+        situacion += (f"Gasta más caja de la que genera y tiene para unos {_n(anios_caja, 1)} años al ritmo actual"
+                      + (": tendrá que pedir dinero pronto, emitiendo acciones o deuda. " if quema else ". "))
+    elif _ok(fcf) and fcf > 0:
+        situacion += "Ya genera caja, lo que le da tiempo. "
+    if g < 0.12 or quema or rb < -0.05:
+        motivo = ("las ventas apenas crecen, y sin crecimiento no hay nada que justifique el precio" if g < 0.12 else
+                  "se le acaba la caja antes de dos años" if quema else "ni siquiera el escenario base sale positivo")
+        return {"etiqueta": "🔴 VENDER / EVITAR", "color": "rojo", "titulo": "CONSIDERAR REDUCIR" if en_cartera else "EVITAR",
+                "texto": situacion + f"No la recomiendo: {motivo}. Escenario base {_pct(rb, 0, True)}, pesimista {_pct(rp, 0, True)}.",
+                "entrada": None, "precio_juicio": "difícil de valorar", "rent_base": rb, "rent_pesimista": rp,
+                "rent_optimista": alc["rent_total"] if alc else None, "exigido": None}
+    return {"etiqueta": "🟡 ESPECULATIVA", "color": "amarillo", "titulo": "MANTENER" if en_cartera else "SOLO COMO APUESTA PEQUEÑA",
+            "texto": situacion + f"Es una apuesta de crecimiento, no una inversión que se pueda valorar con rigor: el escenario base da "
+                     f"{_pct(rb, 0, True)}, el optimista {_pct(alc['rent_total'], 0, True) if alc else '—'} y el pesimista {_pct(rp, 0, True)}. "
+                     "Puede salir muy bien si mantiene el ritmo y muy mal si lo pierde. "
+                     + ("Si ya la tienes, mantén una posición que puedas ver caer a la mitad sin agobiarte." if en_cartera else
+                        "Si te convence el negocio, que sea con poco dinero (una pequeña parte de la cartera) y a varios años."),
+            "entrada": None, "precio_juicio": "difícil de valorar", "rent_base": rb, "rent_pesimista": rp,
+            "rent_optimista": alc["rent_total"] if alc else None, "exigido": None}
 
 
 def veredicto(nombre: str, m: dict, cal: dict, est: dict, rec: dict, tec: dict, d: dict, rie: dict, cat: list[dict]) -> str:
@@ -987,7 +1062,9 @@ def veredicto(nombre: str, m: dict, cal: dict, est: dict, rec: dict, tec: dict, 
     f2 = {"atractivo": "El precio actual es **atractivo**: hay margen de seguridad aunque las previsiones se cumplan solo en parte.",
           "justo": "El precio actual es **justo**: pagas más o menos lo que vale, sin descuento que te proteja si algo falla.",
           "caro": "El precio actual es **caro**: ya descuenta un futuro muy bueno y deja poco que ganar.",
-          "sin valorar": "No se puede decir si está cara o barata con los datos disponibles."}[rec["precio_juicio"]]
+          "sin valorar": "No se puede decir si está cara o barata con los datos disponibles.",
+          "difícil de valorar": "Su precio es **difícil de valorar**: sin beneficios representativos, todo depende de que siga creciendo.",
+          "barato solo sobre el papel": "El precio parece **barato solo sobre el papel**: los números salen, pero el negocio no da confianza."}[rec["precio_juicio"]]
     if cal["etiqueta"] in ("Excelente", "Buena") and rec["precio_juicio"] == "caro":
         f2 += " Buena empresa no es lo mismo que buena compra."
     if cal["etiqueta"] == "Mediocre" and rec["precio_juicio"] == "atractivo":
@@ -1044,6 +1121,10 @@ def resumen_llano(nombre: str, m: dict, cal: dict, est: dict, rec: dict, d: dict
         frases.append("Hoy está a buen precio: aunque las cosas salgan solo medio bien, hay margen para ganar.")
     elif rec["precio_juicio"] == "justo":
         frases.append("Hoy cuesta más o menos lo que vale: ni ganga ni disparate.")
+    elif rec["precio_juicio"] == "difícil de valorar":
+        frases.append("No se puede decir si está cara o barata: aún no gana dinero de verdad y su precio es una apuesta a que seguirá creciendo.")
+    elif rec["precio_juicio"] == "barato solo sobre el papel":
+        frases.append("Sobre el papel parece barata, pero hay motivos para desconfiar del negocio.")
     # 3) lo que se puede ganar y perder
     if base and _ok(rec.get("rent_pesimista")):
         frases.append(f"Con 1.000 € y año y medio de paciencia, lo normal sería acabar cerca de {_n(1000 * (1 + rec['rent_base']), 0)} €; "

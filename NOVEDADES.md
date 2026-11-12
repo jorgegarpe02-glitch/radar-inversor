@@ -1,5 +1,15 @@
 # Novedades
 
+## Versión 2.4 (noviembre de 2026)
+
+- **🪙 Cripto** (menú principal): precios de las 100 mayores criptomonedas en dólares y euros, ánimo del mercado (miedo y codicia),
+  peso de bitcoin y punto del ciclo. Eliges una y te hace su análisis: qué es, solidez de 0 a 10, veredicto a corto, medio y largo
+  plazo, hasta dónde puede moverse en 12 meses, riesgos y qué peso máximo tendría sentido. Comando: `CRIPTO`.
+- **Análisis de empresas que aún no ganan dinero** (Rocket Lab, Palantir, CrowdStrike, Tesla…): antes salían resultados raros
+  («precio atractivo» pero «evitar», o porcentajes disparatados). Ahora se valoran por ventas, se etiquetan como
+  **«especulativa: solo como apuesta pequeña»** cuando crecen deprisa, y como «evitar» solo si no crecen o se les acaba la caja.
+- Los escenarios optimistas ya no pueden dar cifras absurdas cuando el beneficio actual es casi cero.
+
 ## Versión 2.3 (noviembre de 2026)
 
 - **💡 Ideas** (menú principal): las 10 acciones más atractivas de un grupo (IBEX 35, Europa, EE. UU., Nasdaq-100) para comprar

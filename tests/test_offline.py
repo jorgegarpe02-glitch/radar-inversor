@@ -86,3 +86,30 @@ def test_entrada_nunca_por_encima_del_precio():
     esc["escenarios"][1].update(centro=125.0, rent_total=0.06)
     r = analisis.recomendacion(m, cal_buena, esc, {}, [], {"lista": []})
     assert r["titulo"] == "ESPERAR MEJOR PRECIO" and r["entrada"] < 118.0
+
+
+def test_cripto_sin_conexion():
+    import numpy as np
+    import pandas as pd
+    from radar import cripto
+    idx = pd.date_range("2018-01-01", periods=3000, freq="D")
+    s = pd.Series(100 * np.exp(np.cumsum(np.random.default_rng(1).normal(0.0005, 0.04, 3000))), index=idx)
+    btc = {"id": "bitcoin", "nombre": "Bitcoin", "simbolo": "BTC", "puesto": 1, "precio": float(s.iloc[-1]), "cap": 1e12, "volumen": 3e10,
+           "circulante": 20e6, "oferta_max": 21e6, "oferta_total": 20e6, "desde_maximo": -0.4, "fecha_maximo": "2025-10-06",
+           "fecha_minimo": "2013-07-05", "cambio_7d": -0.02, "cambio_30d": -0.1, "cambio_1a": -0.2}
+    btc["tipo"] = cripto.tipo_de(btc)
+    a = cripto.completo(btc, s, s, {"miedo": 30})
+    assert btc["tipo"] == "reserva" and a["solidez"]["puntos"] >= 9 and a["recomendacion"]["color"] in ("verde", "amarillo")
+    assert a["rangos"]["bajo"] < btc["precio"] < a["rangos"]["alto"] and len(a["plazos"]) == 3
+    usdt = {**btc, "id": "tether", "nombre": "Tether", "cambio_7d": 0.0, "cambio_30d": 0.001, "cambio_1a": 0.0}
+    assert cripto.tipo_de(usdt) == "estable"
+    meme = {**btc, "id": "pepe", "nombre": "Pepe", "puesto": 45, "oferta_max": None}
+    meme["tipo"] = cripto.tipo_de(meme)
+    assert cripto.completo(meme, s.tail(300), s, {})["recomendacion"]["color"] != "verde"
+
+
+def test_empresa_sin_beneficios_se_valora_por_ventas():
+    m = {"precio": 50.0, "p_ventas": 40.0, "per": None, "per_fwd": None, "neto": -2e8, "fcf": -1e8, "crec_ingresos_3a": 0.45,
+         "prev_crec_ingresos_sig": 0.40, "moneda": "USD"}
+    esc = analisis.escenarios_precio(m, {"etiqueta": "Mediocre", "puntos": 5}, None, None)
+    assert esc.get("tipo") == "ventas" and len(esc["escenarios"]) == 3

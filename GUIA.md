@@ -299,6 +299,24 @@ precio) y las empresas cotizadas expuestas.
 
 ---
 
+## 3 sexies. Criptomonedas (🪙 Cripto)
+
+Arriba ves cómo está el mercado en conjunto: cuánto vale todo, qué parte es bitcoin, el índice de **miedo y codicia**
+(0 = pánico, 100 = euforia) y cuántos meses han pasado desde el último recorte de emisión de bitcoin.
+
+Debajo, la tabla de precios (en dólares y en euros) con lo que ha subido o bajado cada moneda en 24 horas, 7 días, 30 días y un año.
+
+Al elegir una moneda sale su análisis:
+
+- **Solidez (0-10).** Si es de las que aguantan: tamaño, años cotizando, liquidez, cuántas monedas quedan por salir y para qué sirve.
+  No dice si va a subir.
+- **Veredicto por plazos.** Corto (días), medio (meses) y largo (años) pueden no coincidir: una moneda sólida puede estar en mal momento.
+- **Hasta dónde puede moverse en 12 meses.** No es una predicción, es el rango normal según lo que se ha movido hasta ahora.
+- **Peso máximo orientativo.** Qué parte de tus ahorros invertidos tendría sentido como mucho.
+
+Importante: una criptomoneda no tiene ventas ni beneficios, así que nadie puede calcular cuánto «debería» valer. Las monedas
+estables (valen siempre 1 dólar) aparecen marcadas como «no es una inversión».
+
 ## 3 ter. IA para leer las noticias
 
 Por defecto, el tono de las noticias se calcula con palabras clave. En la barra lateral puedes pulsar **Instalar IA de

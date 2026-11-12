@@ -13,7 +13,7 @@ import pandas as pd
 import streamlit as st
 
 from radar import (actualizador, alertas, cache, cartera, config, conexiones, datos, diario, energia, escenarios, eventos, graficos,
-                   materias, mundo, noticias, noticias_ia, senales, suministro, vistas, vistas2, vistas3)
+                   materias, mundo, noticias, noticias_ia, senales, suministro, vistas, vistas2, vistas3, vistas4)
 from radar import materias as catalogo_materias  # «materias» se reutiliza más abajo como variable
 
 st.set_page_config(page_title="Radar Inversor", page_icon="📡", layout="wide")
@@ -95,7 +95,7 @@ def _alertas_fragmento():
 
 
 # ----------------------------------------------------------------------------- navegación
-AREAS = ["🌍 Inicio", "📌 Picks del día", "💡 Ideas", "📈 Mercados", "🏢 Empresa", "🧺 Cartera", "🔔 Alertas", "📒 Diario", "📘 Guía"]
+AREAS = ["🌍 Inicio", "📌 Picks del día", "💡 Ideas", "📈 Mercados", "🏢 Empresa", "🪙 Cripto", "🧺 Cartera", "🔔 Alertas", "📒 Diario", "📘 Guía"]
 SUB_MERCADOS = ["🌡️ Hoy", "🖥️ Monitor", "🟩 Mapa de calor", "📊 Macro", "🧮 Buscador", "🔍 Oportunidades", "⛏️ Materias primas", "📅 Agenda",
                 "🛢️ Energía y buques"]
 SUB_EMPRESA = ["🧠 Análisis", "💼 Negocio", "🏢 Ficha", "🚦 Señales", "🎯 Escenarios", "📰 Noticias", "🕸️ Conexiones", "🔬 Profundizar",
@@ -105,7 +105,8 @@ FUNCIONES = {"AN": "🧠 Análisis", "DES": "🧠 Análisis", "NEG": "💼 Negoc
              "SEN": "🚦 Señales", "ESC": "🎯 Escenarios", "N": "📰 Noticias", "CN": "📰 Noticias", "CON": "🕸️ Conexiones",
              "SPLC": "🕸️ Conexiones", "COMPRA": "💶 Mi compra", "OWN": "🔬 Profundizar", "HDS": "🔬 Profundizar",
              "OPC": "🔬 Profundizar", "OMON": "🔬 Profundizar", "PRO": "🔬 Profundizar"}
-COMANDOS = {"PICKS": ("📌 Picks del día", None), "RESULTADOS": ("📌 Picks del día", None), "IDEAS": ("💡 Ideas", None), "TOP": ("💡 Ideas", None),
+COMANDOS = {"CRIPTO": ("🪙 Cripto", None), "CRYPTO": ("🪙 Cripto", None), "BTC": ("🪙 Cripto", None), "BITCOIN": ("🪙 Cripto", None),
+            "PICKS": ("📌 Picks del día", None), "RESULTADOS": ("📌 Picks del día", None), "IDEAS": ("💡 Ideas", None), "TOP": ("💡 Ideas", None),
             "MACRO": ("📈 Mercados", "📊 Macro"), "MONITOR": ("📈 Mercados", "🖥️ Monitor"), "BUSCADOR": ("📈 Mercados", "🧮 Buscador"),
             "CARTERA": ("🧺 Cartera", None), "HOY": ("📈 Mercados", "🌡️ Hoy"), "CALOR": ("📈 Mercados", "🟩 Mapa de calor"), "MAPA": ("🌍 Inicio", None),
             "OPORT": ("📈 Mercados", "🔍 Oportunidades"), "MATERIAS": ("📈 Mercados", "⛏️ Materias primas"),
@@ -174,7 +175,7 @@ with st.sidebar:
     st.text_input("Comando", key="comando", on_change=ejecutar_comando, placeholder="⌨️ Comando: NVDA AN · PICKS · ORO",
                   label_visibility="collapsed",
                   help="Escribe y pulsa Intro. Empresa + función: AN análisis · NEG negocio · FA ficha · SEN señales · ESC escenarios · "
-                       "N noticias · CON conexiones · PRO accionistas y opciones. Solos: PICKS, IDEAS, HOY, MONITOR, CALOR, MACRO, BUSCADOR, CARTERA, MAPA, "
+                       "N noticias · CON conexiones · PRO accionistas y opciones. Solos: PICKS, IDEAS, CRIPTO, HOY, MONITOR, CALOR, MACRO, BUSCADOR, CARTERA, MAPA, "
                        "OPORT, MATERIAS, AGENDA, BUQUES, ALERTAS, DIARIO, GUIA, "
                        "o una materia prima (ORO, COBRE…).")
     st.divider()
@@ -640,6 +641,9 @@ elif seccion == "📌 Picks del día":
 
 elif seccion == "💡 Ideas":
     vistas3.pantalla_ideas(abrir_empresa)
+
+elif seccion == "🪙 Cripto":
+    vistas4.pantalla_cripto()
 
 elif seccion == "📊 Macro":
     vistas2.pantalla_macro()
